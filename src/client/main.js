@@ -31114,7 +31114,7 @@
 
 	/**
 	 * State-based routing for AngularJS
-	 * @version v0.3.0
+	 * @version v0.3.1
 	 * @link http://angular-ui.github.com/
 	 * @license MIT License, http://www.opensource.org/licenses/MIT
 	 */
@@ -34469,7 +34469,7 @@
 	        $urlRouter.update(true);
 
 	        return $state.current;
-	      }, function (error) {
+	      }).then(null, function (error) {
 	        if ($state.transition !== transition) return TransitionSuperseded;
 
 	        $state.transition = null;
@@ -35100,7 +35100,7 @@
 	          }
 
 	          if (currentEl) {
-	            var $uiViewData = currentEl.data('$uiView');
+	            var $uiViewData = currentEl.data('$uiViewAnim');
 	            renderer.leave(currentEl, function() {
 	              $uiViewData.$$animLeave.resolve();
 	              previousEl = null;
@@ -35113,7 +35113,7 @@
 
 	        function updateView(firstTime) {
 	          var newScope,
-	              name            = getUiViewName(scope, attrs, inherited, $interpolate),
+	              name            = getUiViewName(scope, attrs, $element, $interpolate),
 	              previousLocals  = name && $state.$current && $state.$current.locals[name];
 
 	          if (!firstTime && previousLocals === latestLocals) return; // nothing to do
@@ -35136,14 +35136,14 @@
 
 	          var clone = $transclude(newScope, function(clone) {
 	            var animEnter = $q.defer(), animLeave = $q.defer();
-	            var viewData = {
-	              name: name,
+	            var viewAnimData = {
 	              $animEnter: animEnter.promise,
 	              $animLeave: animLeave.promise,
 	              $$animLeave: animLeave
 	            };
 
-	            renderer.enter(clone.data('$uiView', viewData), $element, function onUiViewEnter() {
+	            clone.data('$uiViewAnim', viewAnimData);
+	            renderer.enter(clone, $element, function onUiViewEnter() {
 	              animEnter.resolve();
 	              if(currentScope) {
 	                currentScope.$emit('$viewContentAnimationEnded');
@@ -35188,14 +35188,14 @@
 	      var initial = tElement.html();
 	      return function (scope, $element, attrs) {
 	        var current = $state.$current,
-	            $uiViewData = $element.data('$uiView'),
-	            locals  = current && current.locals[$uiViewData.name];
+	            name = getUiViewName(scope, attrs, $element, $interpolate),
+	            locals  = current && current.locals[name];
 
 	        if (! locals) {
 	          return;
 	        }
 
-	        extend($uiViewData, { state: locals.$$state });
+	        $element.data('$uiView', { name: name, state: locals.$$state });
 	        $element.html(locals.$template ? locals.$template : initial);
 
 	        var resolveData = angular.extend({}, locals);
@@ -35226,9 +35226,10 @@
 	 * Shared ui-view code for both directives:
 	 * Given scope, element, and its attributes, return the view's name
 	 */
-	function getUiViewName(scope, attrs, inherited, $interpolate) {
+	function getUiViewName(scope, attrs, element, $interpolate) {
 	  var name = $interpolate(attrs.uiView || attrs.name || '')(scope);
-	  return name.indexOf('@') >= 0 ?  name :  (name + '@' + (inherited ? inherited.state.name : ''));
+	  var uiViewCreatedBy = element.inheritedData('$uiView');
+	  return name.indexOf('@') >= 0 ?  name :  (name + '@' + (uiViewCreatedBy ? uiViewCreatedBy.state.name : ''));
 	}
 
 	angular.module('ui.router.state').directive('uiView', $ViewDirective);
