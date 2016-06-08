@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = function (config) {
   config.set({
     // base path used to resolve all patterns
@@ -14,12 +16,14 @@ module.exports = function (config) {
     exclude: [],
 
     plugins: [
-      require("karma-chai"),
-      require("karma-chrome-launcher"),
-      require("karma-mocha"),
-      require("karma-mocha-reporter"),
-      require("karma-sourcemap-loader"),
-      require("karma-webpack")
+      'karma-chai',
+      'karma-chrome-launcher',
+      'karma-mocha',
+      'karma-mocha-reporter',
+      'karma-sourcemap-loader',
+      'karma-webpack',
+      'karma-coverage',
+      'karma-htmlfile-reporter',
     ],
 
     // preprocess matching files before serving them to the browser
@@ -28,7 +32,22 @@ module.exports = function (config) {
 
     webpack: {
       devtool: 'inline-source-map',
+      isparta: {
+        embedSource: true,
+        noAutoWrap: true,
+        // these babel options will be passed only to isparta and not to babel-loader
+        babel: {
+          presets: ['es2015']
+        }
+      },
       module: {
+        preLoaders: [
+          {
+            test: /\.js$/,
+            include: path.resolve('src/client/'),
+            loader: 'isparta'
+          }
+        ],
         loaders: [
           { test: /\.js/, exclude: [/node_modules/], loader: 'babel' },
           { test: /\.html/, loader: 'raw' },
@@ -45,7 +64,16 @@ module.exports = function (config) {
     },
 
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['progress', 'coverage', 'html', 'mocha'],
+
+    coverageReporter: {
+      type: 'html',
+      dir: 'report/frontend/coverage/'
+    },
+
+    htmlReporter: {
+      outputFile: 'report/frontend/units/units.html'
+    },
 
     // web server port
     port: 9876,
