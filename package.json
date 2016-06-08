@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./node_modules/.bin/babel-node src/server/bin/start"
+    "start": "npm run dev",
+    "dev": "NODE_ENV=development webpack --watch & node ./node_modules/.bin/babel-node src/server/bin/start",
+    "production": "NODE_ENV=production webpack"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@angular/router": "^0.2.0",
     "angular": "^1.5.6",
     "angular-ui-router": "^0.3.0",
     "babel-cli": "^6.9.0",
@@ -31,6 +34,8 @@
   },
   "devDependencies": {
     "babel-loader": "^6.2.4",
+    "browser-sync": "^2.13.0",
+    "browser-sync-webpack-plugin": "^1.0.3",
     "css-loader": "^0.23.1",
     "eslint": "^2.11.1",
     "eslint-config-airbnb": "^9.0.1",
@@ -39,6 +44,7 @@
     "eslint-plugin-jsx-a11y": "^1.2.2",
     "eslint-plugin-react": "^5.1.1",
     "file-loader": "^0.8.5",
+    "gulp": "^3.9.1",
     "jade-loader": "^0.8.0",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
