@@ -1,5 +1,5 @@
 import express from 'express';
-const router = express.Router();
+const router = express.Router();// eslint-disable-line
 
 import config from '../config';
 import log from '../util/log';

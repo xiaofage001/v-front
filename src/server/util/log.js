@@ -1,13 +1,11 @@
-'use strict';
-
 import winston from 'winston';
 
-let console_log = new winston.transports.Console({
+const consoleLog = new winston.transports.Console({
   colorize: true,
   level: 'debug',
 });
 
-let file_log = new winston.transports.File({
+const fileLog = new winston.transports.File({
   filename: 'soc_frontend.log',
   level: 'debug',
   json: false,
@@ -20,18 +18,17 @@ class Logger extends winston.Logger {
     super(options);
     this.tag = options.tag;
   }
-  log() {
-    let rawMsg = arguments[1];
-    arguments[1] = `[${this.tag}] ${rawMsg}`;
-    super.log.apply(this, arguments);
+  log(...args) {
+    const rawMsg = args[1];
+    super.log.apply(this, [args[0], `[${this.tag}] ${rawMsg}`]);
   }
 }
 
 function getTransports() {
-  return [console_log, file_log];
+  return [consoleLog, fileLog];
 }
 
-let defaultLogger = new Logger({
+const defaultLogger = new Logger({
   transports: getTransports(),
   tag: 'default',
 });
@@ -41,16 +38,16 @@ class LogFactory {
     this.loggers = {};
   }
   getLogger(tag) {
-    let _logger = this.loggers[tag];
-    if (!_logger) {
+    let logger = this.loggers[tag];
+    if (!logger) {
       defaultLogger.info(`init logger [${tag}]`);
-      _logger = new Logger({
+      logger = new Logger({
         transports: getTransports(),
-        tag: tag,
+        tag,
       });
-      this.loggers[tag] = _logger;
+      this.loggers[tag] = logger;
     }
-    return _logger;
+    return logger;
   }
 }
 
