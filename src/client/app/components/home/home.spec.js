@@ -1,7 +1,7 @@
 import HomeModule from './index';
 import HomeController from './home.controller';
 import HomeComponent from './home.component';
-import HomeTemplate from './home.html';
+import homeTemplate from './home.jade';
 
 describe('Home', () => {
   let $rootScope, makeController; // eslint-disable-line
@@ -28,7 +28,7 @@ describe('Home', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(HomeTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(homeTemplate()).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
@@ -36,8 +36,8 @@ describe('Home', () => {
     // component/directive specs
     const component = HomeComponent;
 
-    it('includes the intended template',() => {
-      expect(component.template).to.equal(HomeTemplate);
+    it('includes the intended template', () => {
+      expect(component.template).to.equal(homeTemplate());
     });
 
     it('uses `controllerAs` syntax', () => {

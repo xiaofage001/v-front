@@ -1,7 +1,7 @@
 import AboutModule from './index';
 import AboutController from './about.controller';
 import AboutComponent from './about.component';
-import AboutTemplate from './about.html';
+import aboutTemplate from './about.jade';
 
 describe('About', () => {
   let $rootScope, makeController; // eslint-disable-line
@@ -28,7 +28,7 @@ describe('About', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(AboutTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(aboutTemplate()).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
@@ -37,7 +37,7 @@ describe('About', () => {
     const component = AboutComponent;
 
     it('includes the intended template', () => {
-      expect(component.template).to.equal(AboutTemplate);
+      expect(component.template).to.equal(aboutTemplate());
     });
 
     it('uses `controllerAs` syntax', () => {

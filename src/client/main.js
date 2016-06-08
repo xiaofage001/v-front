@@ -35758,7 +35758,7 @@
 	  value: true
 	});
 
-	var _navbar = __webpack_require__(7);
+	var _navbar = __webpack_require__(38);
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
@@ -35773,7 +35773,7 @@
 	var navbarComponent = {
 	  restrict: 'E',
 	  bindings: {},
-	  template: _navbar2.default,
+	  template: (0, _navbar2.default)(),
 	  controller: _navbar4.default,
 	  controllerAs: 'vm'
 	};
@@ -35781,12 +35781,7 @@
 	exports.default = navbarComponent;
 
 /***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	module.exports = "<nav class=\"navbar\">\n  <!-- <div class=\"logo\">\n    <h1><a ng-link=\"home\">{{ vm.name }}</a></h1>\n  </div>\n  <div class=\"nav-links\">\n    <span><a ng-link=\"['home']\">home</a></span>\n    <span><a ng-link=\"['about']\">about</a></span>\n  </div> -->\n</nav>\n"
-
-/***/ },
+/* 7 */,
 /* 8 */
 /***/ function(module, exports) {
 
@@ -36190,7 +36185,7 @@
 	  value: true
 	});
 
-	var _hero = __webpack_require__(15);
+	var _hero = __webpack_require__(37);
 
 	var _hero2 = _interopRequireDefault(_hero);
 
@@ -36203,7 +36198,7 @@
 	var heroComponent = {
 	  restrict: 'E',
 	  bindings: {},
-	  template: _hero2.default,
+	  template: (0, _hero2.default)(),
 	  controller: _hero4.default,
 	  controllerAs: 'vm'
 	};
@@ -36211,12 +36206,7 @@
 	exports.default = heroComponent;
 
 /***/ },
-/* 15 */
-/***/ function(module, exports) {
-
-	module.exports = "<section class=\"hero\">\n  <h1>This is the NG6 starter</h1>\n  <h3>You can find me inside {{ vm.name }}.html</h3>\n</section>\n"
-
-/***/ },
+/* 15 */,
 /* 16 */
 /***/ function(module, exports) {
 
@@ -36357,7 +36347,7 @@
 	  value: true
 	});
 
-	var _home = __webpack_require__(22);
+	var _home = __webpack_require__(36);
 
 	var _home2 = _interopRequireDefault(_home);
 
@@ -36370,7 +36360,7 @@
 	var homeComponent = {
 	  restrict: 'E',
 	  bindings: {},
-	  template: _home2.default,
+	  template: (0, _home2.default)(),
 	  controller: _home4.default,
 	  controllerAs: 'vm'
 	};
@@ -36378,12 +36368,7 @@
 	exports.default = homeComponent;
 
 /***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	module.exports = "<header>\n  <hero></hero>\n</header>\n<main>\n  <div>\n    <h1>Found in {{ vm.name }}.html</h1>\n  </div>\n</main>\n"
-
-/***/ },
+/* 22 */,
 /* 23 */
 /***/ function(module, exports) {
 
@@ -36446,7 +36431,7 @@
 	  value: true
 	});
 
-	var _about = __webpack_require__(26);
+	var _about = __webpack_require__(35);
 
 	var _about2 = _interopRequireDefault(_about);
 
@@ -36459,7 +36444,7 @@
 	var aboutComponent = {
 	  restrict: 'E',
 	  bindings: {},
-	  template: _about2.default,
+	  template: (0, _about2.default)(),
 	  controller: _about4.default,
 	  controllerAs: 'vm'
 	};
@@ -36467,12 +36452,7 @@
 	exports.default = aboutComponent;
 
 /***/ },
-/* 26 */
-/***/ function(module, exports) {
-
-	module.exports = "<h1>{{ vm.name }}</h1>\n<section>\n  About us.\n</section>\n"
-
-/***/ },
+/* 26 */,
 /* 27 */
 /***/ function(module, exports) {
 
@@ -39922,6 +39902,62 @@
 
 	}());
 
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(30);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<h1>{{vm.name}}</h1><section>About us.</section>");;return buf.join("");
+	}
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(30);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<header><hero></hero></header><main><div><h1>Found in {{ vm.name }}.jade</h1></div></main>");;return buf.join("");
+	}
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(30);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<section class=\"hero\"><h1>This is the NG6 starter</h1><h3>You can find me inside {{ vm.name }}.jade</h3></section>");;return buf.join("");
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(30);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<nav class=\"navbar\"><h1>{{ vm.name }}</h1></nav>");;return buf.join("");
+	}
 
 /***/ }
 /******/ ]);

@@ -1,7 +1,7 @@
 import NavbarModule from './index';
 import NavbarController from './navbar.controller';
 import NavbarComponent from './navbar.component';
-import NavbarTemplate from './navbar.html';
+import navbarTemplate from './navbar.jade';
 
 describe('Navbar', () => {
   let $rootScope, makeController; // eslint-disable-line
@@ -29,7 +29,7 @@ describe('Navbar', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(NavbarTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(navbarTemplate()).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
@@ -38,7 +38,7 @@ describe('Navbar', () => {
     const component = NavbarComponent;
 
     it('includes the intended template', () => {
-      expect(component.template).to.equal(NavbarTemplate);
+      expect(component.template).to.equal(navbarTemplate());
     });
 
     it('uses `controllerAs` syntax', () => {

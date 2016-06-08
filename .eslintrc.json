@@ -11,7 +11,7 @@
         "it": true,
         "inject": true
     },
-    "extends": ["airbnb/base", "angular"],
+    "extends": ["airbnb/base"],
     "parserOptions": {
         "sourceType": "module"
     }
