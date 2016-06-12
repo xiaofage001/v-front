@@ -333,3 +333,8 @@
 2016-06-12T03:19:00.316Z - info: [router] Backend Port ==>> 8080
 2016-06-12T03:19:00.318Z - info: [default] init logger [app]
 2016-06-12T03:19:00.334Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T03:34:11.934Z - info: [default] init logger [router]
+2016-06-12T03:34:11.936Z - info: [router] Init logger
+2016-06-12T03:34:11.936Z - info: [router] Backend Port ==>> 8080
+2016-06-12T03:34:11.938Z - info: [default] init logger [app]
+2016-06-12T03:34:11.976Z - info: [app] System Started at port ===>>> 3000

@@ -31126,7 +31126,7 @@
 
 	/**
 	 * State-based routing for AngularJS
-	 * @version v0.3.1
+	 * @version v0.3.0
 	 * @link http://angular-ui.github.com/
 	 * @license MIT License, http://www.opensource.org/licenses/MIT
 	 */
@@ -34481,7 +34481,7 @@
 	        $urlRouter.update(true);
 
 	        return $state.current;
-	      }).then(null, function (error) {
+	      }, function (error) {
 	        if ($state.transition !== transition) return TransitionSuperseded;
 
 	        $state.transition = null;
@@ -35112,7 +35112,7 @@
 	          }
 
 	          if (currentEl) {
-	            var $uiViewData = currentEl.data('$uiViewAnim');
+	            var $uiViewData = currentEl.data('$uiView');
 	            renderer.leave(currentEl, function() {
 	              $uiViewData.$$animLeave.resolve();
 	              previousEl = null;
@@ -35125,7 +35125,7 @@
 
 	        function updateView(firstTime) {
 	          var newScope,
-	              name            = getUiViewName(scope, attrs, $element, $interpolate),
+	              name            = getUiViewName(scope, attrs, inherited, $interpolate),
 	              previousLocals  = name && $state.$current && $state.$current.locals[name];
 
 	          if (!firstTime && previousLocals === latestLocals) return; // nothing to do
@@ -35148,14 +35148,14 @@
 
 	          var clone = $transclude(newScope, function(clone) {
 	            var animEnter = $q.defer(), animLeave = $q.defer();
-	            var viewAnimData = {
+	            var viewData = {
+	              name: name,
 	              $animEnter: animEnter.promise,
 	              $animLeave: animLeave.promise,
 	              $$animLeave: animLeave
 	            };
 
-	            clone.data('$uiViewAnim', viewAnimData);
-	            renderer.enter(clone, $element, function onUiViewEnter() {
+	            renderer.enter(clone.data('$uiView', viewData), $element, function onUiViewEnter() {
 	              animEnter.resolve();
 	              if(currentScope) {
 	                currentScope.$emit('$viewContentAnimationEnded');
@@ -35200,14 +35200,14 @@
 	      var initial = tElement.html();
 	      return function (scope, $element, attrs) {
 	        var current = $state.$current,
-	            name = getUiViewName(scope, attrs, $element, $interpolate),
-	            locals  = current && current.locals[name];
+	            $uiViewData = $element.data('$uiView'),
+	            locals  = current && current.locals[$uiViewData.name];
 
 	        if (! locals) {
 	          return;
 	        }
 
-	        $element.data('$uiView', { name: name, state: locals.$$state });
+	        extend($uiViewData, { state: locals.$$state });
 	        $element.html(locals.$template ? locals.$template : initial);
 
 	        var resolveData = angular.extend({}, locals);
@@ -35238,10 +35238,9 @@
 	 * Shared ui-view code for both directives:
 	 * Given scope, element, and its attributes, return the view's name
 	 */
-	function getUiViewName(scope, attrs, element, $interpolate) {
+	function getUiViewName(scope, attrs, inherited, $interpolate) {
 	  var name = $interpolate(attrs.uiView || attrs.name || '')(scope);
-	  var uiViewCreatedBy = element.inheritedData('$uiView');
-	  return name.indexOf('@') >= 0 ?  name :  (name + '@' + (uiViewCreatedBy ? uiViewCreatedBy.state.name : ''));
+	  return name.indexOf('@') >= 0 ?  name :  (name + '@' + (inherited ? inherited.state.name : ''));
 	}
 
 	angular.module('ui.router.state').directive('uiView', $ViewDirective);
@@ -35755,7 +35754,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = _angular2.default.module('navbar', [_angularUiRouter2.default]).component('navbar', _navbar2.default).name;
+	exports.default = _angular2.default.module('navbar', [_angularUiRouter2.default])
+	// config the top level routed App component
+	.value('$routerRootComponent', 'app').component('navbar', _navbar2.default).name;
 
 /***/ },
 /* 6 */
@@ -35777,12 +35778,14 @@
 
 	__webpack_require__(11);
 
+	var _components = __webpack_require__(21);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var navbarComponent = {
 	  restrict: 'E',
 	  bindings: {},
-	  template: (0, _navbar2.default)(),
+	  template: (0, _navbar2.default)({ components: _components.componentsList }),
 	  controller: _navbar4.default,
 	  controllerAs: 'vm'
 	};
@@ -35799,8 +35802,31 @@
 	var buf = [];
 	var jade_mixins = {};
 	var jade_interp;
+	;var locals_for_with = (locals || {});(function (components, undefined) {
+	buf.push("<nav class=\"navbar\"><h1>{{ vm.name }}</h1>");
+	// iterate components
+	;(function(){
+	  var $$obj = components;
+	  if ('number' == typeof $$obj.length) {
 
-	buf.push("<nav class=\"navbar\"><h1>{{ vm.name }}</h1></nav>");;return buf.join("");
+	    for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
+	      var component = $$obj[$index];
+
+	buf.push("<a" + (jade.attr("ng-link", "['" + (component.name) + "']", true, true)) + ">" + (jade.escape((jade_interp = component.value) == null ? '' : jade_interp)) + "</a>");
+	    }
+
+	  } else {
+	    var $$l = 0;
+	    for (var $index in $$obj) {
+	      $$l++;      var component = $$obj[$index];
+
+	buf.push("<a" + (jade.attr("ng-link", "['" + (component.name) + "']", true, true)) + ">" + (jade.escape((jade_interp = component.value) == null ? '' : jade_interp)) + "</a>");
+	    }
+
+	  }
+	}).call(this);
+
+	buf.push("</nav>");}.call(this,"components" in locals_for_with?locals_for_with.components:typeof components!=="undefined"?components:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
 	}
 
 /***/ },
@@ -36590,9 +36616,22 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var componentsList = [_home2.default, _about2.default];
+	function upperFirstCharactor(name) {
+	  if (_angular2.default.isString(name) && name.length > 0) {
+	    return name.charAt(0).toUpperCase() + name.substr(1);
+	  }
+	  return null;
+	}
 
-	exports.default = _angular2.default.module('app.components', componentsList).name;
+	var componentsList = [{
+	  name: upperFirstCharactor(_home2.default),
+	  value: '家'
+	}, {
+	  name: upperFirstCharactor(_about2.default),
+	  value: '关于'
+	}];
+
+	exports.default = _angular2.default.module('app.components', [_home2.default, _about2.default]).name;
 	exports.componentsList = componentsList;
 
 /***/ },
@@ -36653,7 +36692,7 @@
 	var homeComponent = {
 	  restrict: 'E',
 	  bindings: {},
-	  template: (0, _home2.default)(),
+	  template: (0, _home2.default)({ fucks: ['you', 'he', 'she'] }),
 	  controller: _home4.default,
 	  controllerAs: 'vm'
 	};
@@ -36823,7 +36862,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div class=\"app\"><nav><a ng-link=\"['Home']\">home</a><a ng-link=\"['About']\">about</a><a ng-link=\"['CrisisCenter']\">CrisisCenter</a><a ng-link=\"['Heroes']\">Heroes</a></nav><ng-outlet></ng-outlet></div>");;return buf.join("");
+	buf.push("<div class=\"app\"><navbar></navbar><ng-outlet></ng-outlet></div>");;return buf.join("");
 	}
 
 /***/ },
