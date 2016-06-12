@@ -1,12 +1,12 @@
 import express from 'express';
-const router = express.Router();
+const router = express.Router();// eslint-disable-line
 
 import config from '../config';
 import log from '../util/log';
 
 const logger = log.getLogger('router');
 
-router.get('/', (request, response) => response.send('Hello world'));
+router.get('/config', (request, response) => response.json(config));
 
 logger.info('Init logger');
 logger.info(`Backend Port ==>> ${config.backendPort}`);

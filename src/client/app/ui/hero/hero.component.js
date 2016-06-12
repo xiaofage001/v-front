@@ -1,12 +1,12 @@
-import template from './hero.html';
+import template from './hero.jade';
 import controller from './hero.controller';
 
-let heroComponent = {
+const heroComponent = {
   restrict: 'E',
   bindings: {},
-  template,
+  template: template(),
   controller,
-  controllerAs: 'vm'
+  controllerAs: 'vm',
 };
 
 export default heroComponent;

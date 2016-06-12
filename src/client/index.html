@@ -2,14 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NG1 with Component and router</title>
+    <title>调度平台</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <base href="/">
   </head>
   <body ng-app="app" ng-strict-di ng-cloak>
 
     <app>
-      Loading...
+      <div class="app-loading"><span class="app-loading-text">系统加载中,请稍后...</span></div>
+      <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
     </app>
     
     <script src="main.js"></script>

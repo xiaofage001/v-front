@@ -2,9 +2,16 @@
     "env": {
         "browser": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "mocha": true
     },
-    "extends": "airbnb/base" ,
+    "globals": {
+        "chai": true,
+        "expect": true,
+        "it": true,
+        "inject": true
+    },
+    "extends": ["airbnb/base"],
     "parserOptions": {
         "sourceType": "module"
     }

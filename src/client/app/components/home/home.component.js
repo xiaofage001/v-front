@@ -1,12 +1,12 @@
-import template from './home.html';
+import template from './home.jade';
 import controller from './home.controller';
 
-let homeComponent = {
+const homeComponent = {
   restrict: 'E',
   bindings: {},
-  template,
+  template: template(),
   controller,
-  controllerAs: 'vm'
+  controllerAs: 'vm',
 };
 
 export default homeComponent;

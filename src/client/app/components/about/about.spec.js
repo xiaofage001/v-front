@@ -1,17 +1,15 @@
-import AboutModule from './about'
+import AboutModule from './index';
 import AboutController from './about.controller';
 import AboutComponent from './about.component';
-import AboutTemplate from './about.html';
+import aboutTemplate from './about.jade';
 
 describe('About', () => {
-  let $rootScope, makeController;
+  let $rootScope, makeController; // eslint-disable-line
 
-  beforeEach(window.module(AboutModule.name));
+  beforeEach(window.module(AboutModule)); // eslint-disable-line
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
-    makeController = () => {
-      return new AboutController();
-    };
+    makeController = () => new AboutController();
   }));
 
   describe('Module', () => {
@@ -21,7 +19,7 @@ describe('About', () => {
   describe('Controller', () => {
     // controller specs
     it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
-      let controller = makeController();
+      const controller = makeController();
       expect(controller).to.have.property('name');
     });
   });
@@ -30,24 +28,24 @@ describe('About', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(AboutTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(aboutTemplate()).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
-      // component/directive specs
-      let component = AboutComponent;
+    // component/directive specs
+    const component = AboutComponent;
 
-      it('includes the intended template',() => {
-        expect(component.template).to.equal(AboutTemplate);
-      });
+    it('includes the intended template', () => {
+      expect(component.template).to.equal(aboutTemplate());
+    });
 
-      it('uses `controllerAs` syntax', () => {
-        expect(component).to.have.property('controllerAs');
-      });
+    it('uses `controllerAs` syntax', () => {
+      expect(component).to.have.property('controllerAs');
+    });
 
-      it('invokes the right controller', () => {
-        expect(component.controller).to.equal(AboutController);
-      });
+    it('invokes the right controller', () => {
+      expect(component.controller).to.equal(AboutController);
+    });
   });
 });
