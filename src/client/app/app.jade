@@ -1,3 +1,5 @@
 .app
-    navbar
-    div(ui-view)
+    nav
+        a(ng-link="['Home']") home
+        a(ng-link="['About']") about
+    ng-outlet

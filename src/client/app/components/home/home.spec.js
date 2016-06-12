@@ -1,17 +1,15 @@
-import HomeModule from './home'
+import HomeModule from './index';
 import HomeController from './home.controller';
 import HomeComponent from './home.component';
-import HomeTemplate from './home.html';
+import homeTemplate from './home.jade';
 
 describe('Home', () => {
-  let $rootScope, makeController;
+  let $rootScope, makeController; // eslint-disable-line
 
-  beforeEach(window.module(HomeModule.name));
+  beforeEach(window.module(HomeModule)); // eslint-disable-line
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
-    makeController = () => {
-      return new HomeController();
-    };
+    makeController = () => new HomeController();
   }));
 
   describe('Module', () => {
@@ -21,7 +19,7 @@ describe('Home', () => {
   describe('Controller', () => {
     // controller specs
     it('has a name property [REMOVE]', () => { // erase if removing this.name from the controller
-      let controller = makeController();
+      const controller = makeController();
       expect(controller).to.have.property('name');
     });
   });
@@ -30,24 +28,24 @@ describe('Home', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(HomeTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(homeTemplate()).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
-      // component/directive specs
-      let component = HomeComponent;
+    // component/directive specs
+    const component = HomeComponent;
 
-      it('includes the intended template',() => {
-        expect(component.template).to.equal(HomeTemplate);
-      });
+    it('includes the intended template', () => {
+      expect(component.template).to.equal(homeTemplate());
+    });
 
-      it('uses `controllerAs` syntax', () => {
-        expect(component).to.have.property('controllerAs');
-      });
+    it('uses `controllerAs` syntax', () => {
+      expect(component).to.have.property('controllerAs');
+    });
 
-      it('invokes the right controller', () => {
-        expect(component.controller).to.equal(HomeController);
-      });
+    it('invokes the right controller', () => {
+      expect(component.controller).to.equal(HomeController);
+    });
   });
 });

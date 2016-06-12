@@ -13,7 +13,7 @@ server.port = server.port || 5601;
 server.host = server.host || '0.0.0.0';
 
 export default {
-  environment: environment,
+  environment,
   port: server.port,
   host: server.host,
   backendPort: server.backendPort,
