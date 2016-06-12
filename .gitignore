@@ -1,12 +1,11 @@
 node_modules/
-<<<<<<< HEAD
 
 #log
 soc_frontend.log
 
 #dev main
 src/client/main.js
-=======
+
 report/
 npm-debug.log
->>>>>>> develop
+
