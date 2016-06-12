@@ -1,0 +1,335 @@
+2016-06-02T09:07:24.620Z - info: [default] init logger [router]
+2016-06-02T09:07:24.621Z - info: [router] Init logger
+2016-06-02T09:07:24.622Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:07:24.623Z - info: [default] init logger [app]
+2016-06-02T09:07:24.639Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:08:55.962Z - info: [default] init logger [router]
+2016-06-02T09:08:55.964Z - info: [router] Init logger
+2016-06-02T09:08:55.964Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:08:55.965Z - info: [default] init logger [app]
+2016-06-02T09:08:55.974Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:10:20.410Z - info: [default] init logger [router]
+2016-06-02T09:10:20.412Z - info: [router] Init logger
+2016-06-02T09:10:20.413Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:10:20.414Z - info: [default] init logger [app]
+2016-06-02T09:10:20.423Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:12:57.320Z - info: [default] init logger [router]
+2016-06-02T09:12:57.322Z - info: [router] Init logger
+2016-06-02T09:12:57.322Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:12:57.323Z - info: [default] init logger [app]
+2016-06-02T09:12:57.333Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:13:03.131Z - info: [default] init logger [router]
+2016-06-02T09:13:03.133Z - info: [router] Init logger
+2016-06-02T09:13:03.133Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:13:03.135Z - info: [default] init logger [app]
+2016-06-02T09:13:03.145Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:14:03.635Z - info: [default] init logger [router]
+2016-06-02T09:14:03.637Z - info: [router] Init logger
+2016-06-02T09:14:03.637Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:14:03.639Z - info: [default] init logger [app]
+2016-06-02T09:14:03.648Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:14:28.584Z - info: [default] init logger [router]
+2016-06-02T09:14:28.586Z - info: [router] Init logger
+2016-06-02T09:14:28.586Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:14:28.588Z - info: [default] init logger [app]
+2016-06-02T09:14:28.598Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:14:53.903Z - info: [default] init logger [router]
+2016-06-02T09:14:53.905Z - info: [router] Init logger
+2016-06-02T09:14:53.905Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:14:53.906Z - info: [default] init logger [app]
+2016-06-02T09:14:53.918Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:15:06.636Z - info: [default] init logger [router]
+2016-06-02T09:15:06.638Z - info: [router] Init logger
+2016-06-02T09:15:06.638Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:15:06.640Z - info: [default] init logger [app]
+2016-06-02T09:15:06.649Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:23:07.198Z - info: [default] init logger [router]
+2016-06-02T09:23:07.200Z - info: [router] Init logger
+2016-06-02T09:23:07.200Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:23:07.201Z - info: [default] init logger [app]
+2016-06-02T09:23:07.211Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:37:32.259Z - info: [default] init logger [router]
+2016-06-02T09:37:32.261Z - info: [router] Init logger
+2016-06-02T09:37:32.261Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:37:32.262Z - info: [default] init logger [app]
+2016-06-02T09:37:32.271Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:42:54.831Z - info: [default] init logger [router]
+2016-06-02T09:42:54.834Z - info: [router] Init logger
+2016-06-02T09:42:54.834Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:42:54.835Z - info: [default] init logger [app]
+2016-06-02T09:42:54.844Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:43:48.140Z - info: [default] init logger [router]
+2016-06-02T09:43:48.142Z - info: [router] Init logger
+2016-06-02T09:43:48.142Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:43:48.143Z - info: [default] init logger [app]
+2016-06-02T09:43:48.153Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:45:13.883Z - info: [default] init logger [router]
+2016-06-02T09:45:13.885Z - info: [router] Init logger
+2016-06-02T09:45:13.885Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:45:13.886Z - info: [default] init logger [app]
+2016-06-02T09:45:13.896Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:49:02.487Z - info: [default] init logger [router]
+2016-06-02T09:49:02.489Z - info: [router] Init logger
+2016-06-02T09:49:02.489Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:49:02.490Z - info: [default] init logger [app]
+2016-06-02T09:49:02.499Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:49:55.489Z - info: [default] init logger [router]
+2016-06-02T09:49:55.491Z - info: [router] Init logger
+2016-06-02T09:49:55.491Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:49:55.492Z - info: [default] init logger [app]
+2016-06-02T09:49:55.501Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T09:50:13.457Z - info: [default] init logger [router]
+2016-06-02T09:50:13.459Z - info: [router] Init logger
+2016-06-02T09:50:13.459Z - info: [router] Backend Port ==>> 8080
+2016-06-02T09:50:13.460Z - info: [default] init logger [app]
+2016-06-02T09:50:13.471Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T10:02:05.688Z - info: [default] init logger [router]
+2016-06-02T10:02:05.690Z - info: [router] Init logger
+2016-06-02T10:02:05.690Z - info: [router] Backend Port ==>> 8080
+2016-06-02T10:02:05.691Z - info: [default] init logger [app]
+2016-06-02T10:02:05.701Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T10:04:11.432Z - info: [default] init logger [router]
+2016-06-02T10:04:11.434Z - info: [router] Init logger
+2016-06-02T10:04:11.434Z - info: [router] Backend Port ==>> 8080
+2016-06-02T10:04:11.435Z - info: [default] init logger [app]
+2016-06-02T10:04:11.445Z - info: [app] System Started at port ===>>> 3000
+2016-06-02T10:04:28.946Z - info: [default] init logger [router]
+2016-06-02T10:04:28.949Z - info: [router] Init logger
+2016-06-02T10:04:28.949Z - info: [router] Backend Port ==>> 8080
+2016-06-02T10:04:28.950Z - info: [default] init logger [app]
+2016-06-02T10:04:28.960Z - info: [app] System Started at port ===>>> 3000
+2016-06-06T02:28:58.997Z - info: [default] init logger [router]
+2016-06-06T02:28:58.999Z - info: [router] Init logger
+2016-06-06T02:28:59.000Z - info: [router] Backend Port ==>> 8080
+2016-06-06T02:28:59.001Z - info: [default] init logger [app]
+2016-06-06T02:28:59.010Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:20:01.278Z - info: [default] init logger [router]
+2016-06-07T08:20:01.281Z - info: [router] Init logger
+2016-06-07T08:20:01.281Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:20:01.282Z - info: [default] init logger [app]
+2016-06-07T08:20:01.339Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:26:49.209Z - info: [default] init logger [router]
+2016-06-07T08:26:49.212Z - info: [router] Init logger
+2016-06-07T08:26:49.212Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:26:49.213Z - info: [default] init logger [app]
+2016-06-07T08:26:49.222Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:34:14.978Z - info: [default] init logger [router]
+2016-06-07T08:34:14.981Z - info: [router] Init logger
+2016-06-07T08:34:14.981Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:34:14.982Z - info: [default] init logger [app]
+2016-06-07T08:34:14.992Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:36:15.774Z - info: [default] init logger [router]
+2016-06-07T08:36:15.777Z - info: [router] Init logger
+2016-06-07T08:36:15.777Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:36:15.778Z - info: [default] init logger [app]
+2016-06-07T08:36:15.788Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:40:58.193Z - info: [default] init logger [router]
+2016-06-07T08:40:58.196Z - info: [router] Init logger
+2016-06-07T08:40:58.196Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:40:58.197Z - info: [default] init logger [app]
+2016-06-07T08:40:58.212Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:41:04.429Z - info: [default] init logger [router]
+2016-06-07T08:41:04.432Z - info: [router] Init logger
+2016-06-07T08:41:04.432Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:41:04.433Z - info: [default] init logger [app]
+2016-06-07T08:41:04.442Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:43:48.488Z - info: [default] init logger [router]
+2016-06-07T08:43:48.490Z - info: [router] Init logger
+2016-06-07T08:43:48.490Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:43:48.492Z - info: [default] init logger [app]
+2016-06-07T08:43:48.501Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:43:55.144Z - info: [default] init logger [router]
+2016-06-07T08:43:55.147Z - info: [router] Init logger
+2016-06-07T08:43:55.147Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:43:55.148Z - info: [default] init logger [app]
+2016-06-07T08:43:55.157Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:44:38.977Z - info: [default] init logger [router]
+2016-06-07T08:44:38.979Z - info: [router] Init logger
+2016-06-07T08:44:38.980Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:44:38.981Z - info: [default] init logger [app]
+2016-06-07T08:44:38.990Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:47:41.709Z - info: [default] init logger [router]
+2016-06-07T08:47:41.711Z - info: [router] Init logger
+2016-06-07T08:47:41.711Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:47:41.713Z - info: [default] init logger [app]
+2016-06-07T08:47:41.722Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T08:59:43.727Z - info: [default] init logger [router]
+2016-06-07T08:59:43.729Z - info: [router] Init logger
+2016-06-07T08:59:43.729Z - info: [router] Backend Port ==>> 8080
+2016-06-07T08:59:43.731Z - info: [default] init logger [app]
+2016-06-07T08:59:43.739Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:04:29.510Z - info: [default] init logger [router]
+2016-06-07T09:04:29.512Z - info: [router] Init logger
+2016-06-07T09:04:29.513Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:04:29.514Z - info: [default] init logger [app]
+2016-06-07T09:04:29.523Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:06:15.634Z - info: [default] init logger [router]
+2016-06-07T09:06:15.636Z - info: [router] Init logger
+2016-06-07T09:06:15.636Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:06:15.637Z - info: [default] init logger [app]
+2016-06-07T09:06:15.647Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:07:20.452Z - info: [default] init logger [router]
+2016-06-07T09:07:20.454Z - info: [router] Init logger
+2016-06-07T09:07:20.454Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:07:20.456Z - info: [default] init logger [app]
+2016-06-07T09:07:20.465Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:08:46.794Z - info: [default] init logger [router]
+2016-06-07T09:08:46.796Z - info: [router] Init logger
+2016-06-07T09:08:46.797Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:08:46.798Z - info: [default] init logger [app]
+2016-06-07T09:08:46.807Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:09:43.984Z - info: [default] init logger [router]
+2016-06-07T09:09:43.988Z - info: [router] Init logger
+2016-06-07T09:09:43.988Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:09:43.990Z - info: [default] init logger [app]
+2016-06-07T09:09:44.004Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:12:56.320Z - info: [default] init logger [router]
+2016-06-07T09:12:56.323Z - info: [router] Init logger
+2016-06-07T09:12:56.323Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:12:56.325Z - info: [default] init logger [app]
+2016-06-07T09:12:56.334Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:14:27.360Z - info: [default] init logger [router]
+2016-06-07T09:14:27.363Z - info: [router] Init logger
+2016-06-07T09:14:27.363Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:14:27.365Z - info: [default] init logger [app]
+2016-06-07T09:14:27.373Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:15:03.892Z - info: [default] init logger [router]
+2016-06-07T09:15:03.895Z - info: [router] Init logger
+2016-06-07T09:15:03.895Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:15:03.896Z - info: [default] init logger [app]
+2016-06-07T09:15:03.911Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:19:13.995Z - info: [default] init logger [router]
+2016-06-07T09:19:13.997Z - info: [router] Init logger
+2016-06-07T09:19:13.997Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:19:13.999Z - info: [default] init logger [app]
+2016-06-07T09:19:14.008Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:20:15.926Z - info: [default] init logger [router]
+2016-06-07T09:20:15.928Z - info: [router] Init logger
+2016-06-07T09:20:15.928Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:20:15.930Z - info: [default] init logger [app]
+2016-06-07T09:20:15.944Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:39:19.142Z - info: [default] init logger [router]
+2016-06-07T09:39:19.145Z - info: [router] Init logger
+2016-06-07T09:39:19.145Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:39:19.146Z - info: [default] init logger [app]
+2016-06-07T09:39:19.155Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:40:30.279Z - info: [default] init logger [router]
+2016-06-07T09:40:30.282Z - info: [router] Init logger
+2016-06-07T09:40:30.282Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:40:30.284Z - info: [default] init logger [app]
+2016-06-07T09:40:30.292Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:42:14.481Z - info: [default] init logger [router]
+2016-06-07T09:42:14.484Z - info: [router] Init logger
+2016-06-07T09:42:14.484Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:42:14.485Z - info: [default] init logger [app]
+2016-06-07T09:42:14.494Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T09:56:39.835Z - info: [default] init logger [router]
+2016-06-07T09:56:39.838Z - info: [router] Init logger
+2016-06-07T09:56:39.838Z - info: [router] Backend Port ==>> 8080
+2016-06-07T09:56:39.840Z - info: [default] init logger [app]
+2016-06-07T09:56:39.849Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T10:00:10.772Z - info: [default] init logger [router]
+2016-06-07T10:00:10.774Z - info: [router] Init logger
+2016-06-07T10:00:10.774Z - info: [router] Backend Port ==>> 8080
+2016-06-07T10:00:10.776Z - info: [default] init logger [app]
+2016-06-07T10:00:10.785Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T10:00:58.307Z - info: [default] init logger [router]
+2016-06-07T10:00:58.309Z - info: [router] Init logger
+2016-06-07T10:00:58.309Z - info: [router] Backend Port ==>> 8080
+2016-06-07T10:00:58.311Z - info: [default] init logger [app]
+2016-06-07T10:00:58.320Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T10:02:13.660Z - info: [default] init logger [router]
+2016-06-07T10:02:13.662Z - info: [router] Init logger
+2016-06-07T10:02:13.663Z - info: [router] Backend Port ==>> 8080
+2016-06-07T10:02:13.664Z - info: [default] init logger [app]
+2016-06-07T10:02:13.674Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T10:03:38.150Z - info: [default] init logger [router]
+2016-06-07T10:03:38.152Z - info: [router] Init logger
+2016-06-07T10:03:38.152Z - info: [router] Backend Port ==>> 8080
+2016-06-07T10:03:38.154Z - info: [default] init logger [app]
+2016-06-07T10:03:38.162Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T10:04:36.185Z - info: [default] init logger [router]
+2016-06-07T10:04:36.188Z - info: [router] Init logger
+2016-06-07T10:04:36.188Z - info: [router] Backend Port ==>> 8080
+2016-06-07T10:04:36.189Z - info: [default] init logger [app]
+2016-06-07T10:04:36.198Z - info: [app] System Started at port ===>>> 3000
+2016-06-07T10:05:32.438Z - info: [default] init logger [router]
+2016-06-07T10:05:32.440Z - info: [router] Init logger
+2016-06-07T10:05:32.441Z - info: [router] Backend Port ==>> 8080
+2016-06-07T10:05:32.442Z - info: [default] init logger [app]
+2016-06-07T10:05:32.451Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:48:37.315Z - info: [default] init logger [router]
+2016-06-12T02:48:37.318Z - info: [router] Init logger
+2016-06-12T02:48:37.318Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:48:37.320Z - info: [default] init logger [app]
+2016-06-12T02:48:37.334Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:49:08.488Z - info: [default] init logger [router]
+2016-06-12T02:49:08.492Z - info: [router] Init logger
+2016-06-12T02:49:08.492Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:49:08.495Z - info: [default] init logger [app]
+2016-06-12T02:49:08.510Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:50:22.001Z - info: [default] init logger [router]
+2016-06-12T02:50:22.005Z - info: [router] Init logger
+2016-06-12T02:50:22.006Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:50:22.008Z - info: [default] init logger [app]
+2016-06-12T02:50:22.027Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:53:23.783Z - info: [default] init logger [router]
+2016-06-12T02:53:23.786Z - info: [router] Init logger
+2016-06-12T02:53:23.786Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:53:23.787Z - info: [default] init logger [app]
+2016-06-12T02:53:23.799Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:55:52.729Z - info: [default] init logger [router]
+2016-06-12T02:55:52.732Z - info: [router] Init logger
+2016-06-12T02:55:52.732Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:55:52.734Z - info: [default] init logger [app]
+2016-06-12T02:55:52.743Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:56:55.377Z - info: [default] init logger [router]
+2016-06-12T02:56:55.380Z - info: [router] Init logger
+2016-06-12T02:56:55.380Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:56:55.382Z - info: [default] init logger [app]
+2016-06-12T02:56:55.393Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:57:23.009Z - info: [default] init logger [router]
+2016-06-12T02:57:23.012Z - info: [router] Init logger
+2016-06-12T02:57:23.012Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:57:23.014Z - info: [default] init logger [app]
+2016-06-12T02:57:23.025Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:57:41.680Z - info: [default] init logger [router]
+2016-06-12T02:57:41.684Z - info: [router] Init logger
+2016-06-12T02:57:41.684Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:57:41.687Z - info: [default] init logger [app]
+2016-06-12T02:57:41.708Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:57:58.454Z - info: [default] init logger [router]
+2016-06-12T02:57:58.456Z - info: [router] Init logger
+2016-06-12T02:57:58.456Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:57:58.458Z - info: [default] init logger [app]
+2016-06-12T02:57:58.467Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T02:59:44.073Z - info: [default] init logger [router]
+2016-06-12T02:59:44.076Z - info: [router] Init logger
+2016-06-12T02:59:44.076Z - info: [router] Backend Port ==>> 8080
+2016-06-12T02:59:44.078Z - info: [default] init logger [app]
+2016-06-12T02:59:44.090Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T03:05:16.675Z - info: [default] init logger [router]
+2016-06-12T03:05:16.679Z - info: [router] Init logger
+2016-06-12T03:05:16.679Z - info: [router] Backend Port ==>> 8080
+2016-06-12T03:05:16.682Z - info: [default] init logger [app]
+2016-06-12T03:05:16.696Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T03:07:31.863Z - info: [default] init logger [router]
+2016-06-12T03:07:31.866Z - info: [router] Init logger
+2016-06-12T03:07:31.866Z - info: [router] Backend Port ==>> 8080
+2016-06-12T03:07:31.867Z - info: [default] init logger [app]
+2016-06-12T03:07:31.877Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T03:16:02.296Z - info: [default] init logger [router]
+2016-06-12T03:16:02.300Z - info: [router] Init logger
+2016-06-12T03:16:02.300Z - info: [router] Backend Port ==>> 8080
+2016-06-12T03:16:02.302Z - info: [default] init logger [app]
+2016-06-12T03:16:02.312Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T03:17:21.661Z - info: [default] init logger [router]
+2016-06-12T03:17:21.664Z - info: [router] Init logger
+2016-06-12T03:17:21.664Z - info: [router] Backend Port ==>> 8080
+2016-06-12T03:17:21.667Z - info: [default] init logger [app]
+2016-06-12T03:17:21.677Z - info: [app] System Started at port ===>>> 3000
+2016-06-12T03:19:00.312Z - info: [default] init logger [router]
+2016-06-12T03:19:00.316Z - info: [router] Init logger
+2016-06-12T03:19:00.316Z - info: [router] Backend Port ==>> 8080
+2016-06-12T03:19:00.318Z - info: [default] init logger [app]
+2016-06-12T03:19:00.334Z - info: [app] System Started at port ===>>> 3000

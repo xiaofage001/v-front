@@ -58,21 +58,29 @@
 
 	var _ui2 = _interopRequireDefault(_ui);
 
-	var _components = __webpack_require__(19);
+	var _components = __webpack_require__(21);
 
 	var _components2 = _interopRequireDefault(_components);
 
-	var _app = __webpack_require__(28);
+	var _app = __webpack_require__(30);
 
 	var _app2 = _interopRequireDefault(_app);
 
-	__webpack_require__(32);
+	var _index = __webpack_require__(32);
 
-	__webpack_require__(34);
+	var _index2 = _interopRequireDefault(_index);
+
+	var _index3 = __webpack_require__(42);
+
+	var _index4 = _interopRequireDefault(_index3);
+
+	__webpack_require__(53);
+
+	__webpack_require__(55);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('app', [_angularUiRouter2.default, _ui2.default, _components2.default, 'ngComponentRouter'])
+	_angular2.default.module('app', [_angularUiRouter2.default, _ui2.default, _components2.default, 'ngComponentRouter', 'heroes', 'crisis-center'])
 	// config the top level routed App component
 	.value('$routerRootComponent', 'app').component('app', _app2.default);
 
@@ -35711,11 +35719,11 @@
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
-	var _hero = __webpack_require__(13);
+	var _hero = __webpack_require__(15);
 
 	var _hero2 = _interopRequireDefault(_hero);
 
-	var _user = __webpack_require__(17);
+	var _user = __webpack_require__(19);
 
 	var _user2 = _interopRequireDefault(_user);
 
@@ -35759,15 +35767,15 @@
 	  value: true
 	});
 
-	var _navbar = __webpack_require__(38);
+	var _navbar = __webpack_require__(7);
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
-	var _navbar3 = __webpack_require__(8);
+	var _navbar3 = __webpack_require__(10);
 
 	var _navbar4 = _interopRequireDefault(_navbar3);
 
-	__webpack_require__(9);
+	__webpack_require__(11);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35782,8 +35790,279 @@
 	exports.default = navbarComponent;
 
 /***/ },
-/* 7 */,
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<nav class=\"navbar\"><h1>{{ vm.name }}</h1></nav>");;return buf.join("");
+	}
+
+/***/ },
 /* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	/**
+	 * Merge two attribute objects giving precedence
+	 * to values in object `b`. Classes are special-cased
+	 * allowing for arrays and merging/joining appropriately
+	 * resulting in a string.
+	 *
+	 * @param {Object} a
+	 * @param {Object} b
+	 * @return {Object} a
+	 * @api private
+	 */
+
+	exports.merge = function merge(a, b) {
+	  if (arguments.length === 1) {
+	    var attrs = a[0];
+	    for (var i = 1; i < a.length; i++) {
+	      attrs = merge(attrs, a[i]);
+	    }
+	    return attrs;
+	  }
+	  var ac = a['class'];
+	  var bc = b['class'];
+
+	  if (ac || bc) {
+	    ac = ac || [];
+	    bc = bc || [];
+	    if (!Array.isArray(ac)) ac = [ac];
+	    if (!Array.isArray(bc)) bc = [bc];
+	    a['class'] = ac.concat(bc).filter(nulls);
+	  }
+
+	  for (var key in b) {
+	    if (key != 'class') {
+	      a[key] = b[key];
+	    }
+	  }
+
+	  return a;
+	};
+
+	/**
+	 * Filter null `val`s.
+	 *
+	 * @param {*} val
+	 * @return {Boolean}
+	 * @api private
+	 */
+
+	function nulls(val) {
+	  return val != null && val !== '';
+	}
+
+	/**
+	 * join array as classes.
+	 *
+	 * @param {*} val
+	 * @return {String}
+	 */
+	exports.joinClasses = joinClasses;
+	function joinClasses(val) {
+	  return (Array.isArray(val) ? val.map(joinClasses) :
+	    (val && typeof val === 'object') ? Object.keys(val).filter(function (key) { return val[key]; }) :
+	    [val]).filter(nulls).join(' ');
+	}
+
+	/**
+	 * Render the given classes.
+	 *
+	 * @param {Array} classes
+	 * @param {Array.<Boolean>} escaped
+	 * @return {String}
+	 */
+	exports.cls = function cls(classes, escaped) {
+	  var buf = [];
+	  for (var i = 0; i < classes.length; i++) {
+	    if (escaped && escaped[i]) {
+	      buf.push(exports.escape(joinClasses([classes[i]])));
+	    } else {
+	      buf.push(joinClasses(classes[i]));
+	    }
+	  }
+	  var text = joinClasses(buf);
+	  if (text.length) {
+	    return ' class="' + text + '"';
+	  } else {
+	    return '';
+	  }
+	};
+
+
+	exports.style = function (val) {
+	  if (val && typeof val === 'object') {
+	    return Object.keys(val).map(function (style) {
+	      return style + ':' + val[style];
+	    }).join(';');
+	  } else {
+	    return val;
+	  }
+	};
+	/**
+	 * Render the given attribute.
+	 *
+	 * @param {String} key
+	 * @param {String} val
+	 * @param {Boolean} escaped
+	 * @param {Boolean} terse
+	 * @return {String}
+	 */
+	exports.attr = function attr(key, val, escaped, terse) {
+	  if (key === 'style') {
+	    val = exports.style(val);
+	  }
+	  if ('boolean' == typeof val || null == val) {
+	    if (val) {
+	      return ' ' + (terse ? key : key + '="' + key + '"');
+	    } else {
+	      return '';
+	    }
+	  } else if (0 == key.indexOf('data') && 'string' != typeof val) {
+	    if (JSON.stringify(val).indexOf('&') !== -1) {
+	      console.warn('Since Jade 2.0.0, ampersands (`&`) in data attributes ' +
+	                   'will be escaped to `&amp;`');
+	    };
+	    if (val && typeof val.toISOString === 'function') {
+	      console.warn('Jade will eliminate the double quotes around dates in ' +
+	                   'ISO form after 2.0.0');
+	    }
+	    return ' ' + key + "='" + JSON.stringify(val).replace(/'/g, '&apos;') + "'";
+	  } else if (escaped) {
+	    if (val && typeof val.toISOString === 'function') {
+	      console.warn('Jade will stringify dates in ISO form after 2.0.0');
+	    }
+	    return ' ' + key + '="' + exports.escape(val) + '"';
+	  } else {
+	    if (val && typeof val.toISOString === 'function') {
+	      console.warn('Jade will stringify dates in ISO form after 2.0.0');
+	    }
+	    return ' ' + key + '="' + val + '"';
+	  }
+	};
+
+	/**
+	 * Render the given attributes object.
+	 *
+	 * @param {Object} obj
+	 * @param {Object} escaped
+	 * @return {String}
+	 */
+	exports.attrs = function attrs(obj, terse){
+	  var buf = [];
+
+	  var keys = Object.keys(obj);
+
+	  if (keys.length) {
+	    for (var i = 0; i < keys.length; ++i) {
+	      var key = keys[i]
+	        , val = obj[key];
+
+	      if ('class' == key) {
+	        if (val = joinClasses(val)) {
+	          buf.push(' ' + key + '="' + val + '"');
+	        }
+	      } else {
+	        buf.push(exports.attr(key, val, false, terse));
+	      }
+	    }
+	  }
+
+	  return buf.join('');
+	};
+
+	/**
+	 * Escape the given string of `html`.
+	 *
+	 * @param {String} html
+	 * @return {String}
+	 * @api private
+	 */
+
+	var jade_encode_html_rules = {
+	  '&': '&amp;',
+	  '<': '&lt;',
+	  '>': '&gt;',
+	  '"': '&quot;'
+	};
+	var jade_match_html = /[&<>"]/g;
+
+	function jade_encode_char(c) {
+	  return jade_encode_html_rules[c] || c;
+	}
+
+	exports.escape = jade_escape;
+	function jade_escape(html){
+	  var result = String(html).replace(jade_match_html, jade_encode_char);
+	  if (result === '' + html) return html;
+	  else return result;
+	};
+
+	/**
+	 * Re-throw the given `err` in context to the
+	 * the jade in `filename` at the given `lineno`.
+	 *
+	 * @param {Error} err
+	 * @param {String} filename
+	 * @param {String} lineno
+	 * @api private
+	 */
+
+	exports.rethrow = function rethrow(err, filename, lineno, str){
+	  if (!(err instanceof Error)) throw err;
+	  if ((typeof window != 'undefined' || !filename) && !str) {
+	    err.message += ' on line ' + lineno;
+	    throw err;
+	  }
+	  try {
+	    str = str || __webpack_require__(9).readFileSync(filename, 'utf8')
+	  } catch (ex) {
+	    rethrow(err, null, lineno)
+	  }
+	  var context = 3
+	    , lines = str.split('\n')
+	    , start = Math.max(lineno - context, 0)
+	    , end = Math.min(lines.length, lineno + context);
+
+	  // Error context
+	  var context = lines.slice(start, end).map(function(line, i){
+	    var curr = i + start + 1;
+	    return (curr == lineno ? '  > ' : '    ')
+	      + curr
+	      + '| '
+	      + line;
+	  }).join('\n');
+
+	  // Alter exception message
+	  err.path = filename;
+	  err.message = (filename || 'Jade') + ':' + lineno
+	    + '\n' + context + '\n\n' + err.message;
+	  throw err;
+	};
+
+	exports.DebugItem = function DebugItem(lineno, filename) {
+	  this.lineno = lineno;
+	  this.filename = filename;
+	}
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	/* (ignored) */
+
+/***/ },
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35803,16 +36082,16 @@
 	exports.default = NavbarController;
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(10);
+	var content = __webpack_require__(12);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(12)(content, {});
+	var update = __webpack_require__(14)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -35829,10 +36108,10 @@
 	}
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(11)();
+	exports = module.exports = __webpack_require__(13)();
 	// imports
 
 
@@ -35843,7 +36122,7 @@
 
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/*
@@ -35899,7 +36178,7 @@
 
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -36151,7 +36430,7 @@
 
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36168,7 +36447,7 @@
 
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 
-	var _hero = __webpack_require__(14);
+	var _hero = __webpack_require__(16);
 
 	var _hero2 = _interopRequireDefault(_hero);
 
@@ -36177,7 +36456,7 @@
 	exports.default = _angular2.default.module('hero', [_angularUiRouter2.default]).component('hero', _hero2.default).name;
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36186,11 +36465,11 @@
 	  value: true
 	});
 
-	var _hero = __webpack_require__(37);
+	var _hero = __webpack_require__(17);
 
 	var _hero2 = _interopRequireDefault(_hero);
 
-	var _hero3 = __webpack_require__(16);
+	var _hero3 = __webpack_require__(18);
 
 	var _hero4 = _interopRequireDefault(_hero3);
 
@@ -36207,8 +36486,21 @@
 	exports.default = heroComponent;
 
 /***/ },
-/* 15 */,
-/* 16 */
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<section class=\"hero\"><h1>This is the NG6 starter</h1><h3>You can find me inside {{ vm.name }}.jade</h3></section>");;return buf.join("");
+	}
+
+/***/ },
+/* 18 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36228,7 +36520,7 @@
 	exports.default = HeroController;
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36241,7 +36533,7 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _user = __webpack_require__(18);
+	var _user = __webpack_require__(20);
 
 	var _user2 = _interopRequireDefault(_user);
 
@@ -36250,7 +36542,7 @@
 	exports.default = _angular2.default.module('user', []).factory('User', _user2.default).name;
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -36274,7 +36566,7 @@
 	};
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36288,11 +36580,11 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _home = __webpack_require__(20);
+	var _home = __webpack_require__(22);
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _about = __webpack_require__(24);
+	var _about = __webpack_require__(26);
 
 	var _about2 = _interopRequireDefault(_about);
 
@@ -36304,7 +36596,7 @@
 	exports.componentsList = componentsList;
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36321,7 +36613,7 @@
 
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 
-	var _home = __webpack_require__(21);
+	var _home = __webpack_require__(23);
 
 	var _home2 = _interopRequireDefault(_home);
 
@@ -36339,7 +36631,7 @@
 	}]).component('home', _home2.default).name;
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36348,11 +36640,11 @@
 	  value: true
 	});
 
-	var _home = __webpack_require__(36);
+	var _home = __webpack_require__(24);
 
 	var _home2 = _interopRequireDefault(_home);
 
-	var _home3 = __webpack_require__(23);
+	var _home3 = __webpack_require__(25);
 
 	var _home4 = _interopRequireDefault(_home3);
 
@@ -36369,8 +36661,21 @@
 	exports.default = homeComponent;
 
 /***/ },
-/* 22 */,
-/* 23 */
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<header><hero></hero></header><main><div><h1>Found in {{ vm.name }}.jade</h1></div></main>");;return buf.join("");
+	}
+
+/***/ },
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36390,7 +36695,7 @@
 	exports.default = HomeController;
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36407,7 +36712,7 @@
 
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 
-	var _about = __webpack_require__(25);
+	var _about = __webpack_require__(27);
 
 	var _about2 = _interopRequireDefault(_about);
 
@@ -36423,7 +36728,7 @@
 	}]).component('about', _about2.default).name;
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36432,11 +36737,11 @@
 	  value: true
 	});
 
-	var _about = __webpack_require__(35);
+	var _about = __webpack_require__(28);
 
 	var _about2 = _interopRequireDefault(_about);
 
-	var _about3 = __webpack_require__(27);
+	var _about3 = __webpack_require__(29);
 
 	var _about4 = _interopRequireDefault(_about3);
 
@@ -36453,8 +36758,21 @@
 	exports.default = aboutComponent;
 
 /***/ },
-/* 26 */,
-/* 27 */
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<h1>{{vm.name}}</h1><section>About us.</section>");;return buf.join("");
+	}
+
+/***/ },
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36474,7 +36792,42 @@
 	exports.default = AboutController;
 
 /***/ },
-/* 28 */
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _app = __webpack_require__(31);
+
+	var _app2 = _interopRequireDefault(_app);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+		template: (0, _app2.default)(),
+		$routeConfig: [{ path: '/home', name: 'Home', component: 'home', useAsDefault: true }, { path: '/about', name: 'About', component: 'about' }, { path: '/crisis-center/...', name: 'CrisisCenter', component: 'crisisCenter' }, { path: '/heroes/...', name: 'Heroes', component: 'heroes' }]
+	};
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div class=\"app\"><nav><a ng-link=\"['Home']\">home</a><a ng-link=\"['About']\">about</a><a ng-link=\"['CrisisCenter']\">CrisisCenter</a><a ng-link=\"['Heroes']\">Heroes</a></nav><ng-outlet></ng-outlet></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36483,303 +36836,552 @@
 	  value: true
 	});
 
-	var _app = __webpack_require__(29);
+	var _angular = __webpack_require__(1);
 
-	var _app2 = _interopRequireDefault(_app);
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _heroes = __webpack_require__(33);
+
+	var _heroes2 = _interopRequireDefault(_heroes);
+
+	var _heroes3 = __webpack_require__(34);
+
+	var _heroes4 = _interopRequireDefault(_heroes3);
+
+	var _heroList = __webpack_require__(36);
+
+	var _heroList2 = _interopRequireDefault(_heroList);
+
+	var _heroDetail = __webpack_require__(39);
+
+	var _heroDetail2 = _interopRequireDefault(_heroDetail);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var appComponent = {
-	  template: (0, _app2.default)(),
-	  restrict: 'E',
-	  $routeConfig: [{ path: '/home', name: 'Home', component: 'home', useAsDefault: true }, { path: '/about', name: 'About', component: 'about' }]
-	};
-
-	exports.default = appComponent;
+	exports.default = _angular2.default.module('heroes', []).service('heroService', _heroes2.default).component('heroes', _heroes4.default).component('heroList', _heroList2.default).component('heroDetail', _heroDetail2.default);
 
 /***/ },
-/* 29 */
+/* 33 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = ['$q', function ($q) {
+		var heroesPromise = $q.when([{ id: 11, name: 'Mr. Nice' }, { id: 12, name: 'Narco' }, { id: 13, name: 'Bombasto' }, { id: 14, name: 'Celeritas' }, { id: 15, name: 'Magneta' }, { id: 16, name: 'RubberMan' }]);
+
+		this.getHeroes = function () {
+			return heroesPromise;
+		};
+
+		this.getHero = function (id) {
+			return heroesPromise.then(function (heroes) {
+				for (var i = 0; i < heroes.length; i++) {
+					if (heroes[i].id == id) return heroes[i];
+				}
+			});
+		};
+	}];
+
+/***/ },
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(30);
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _heroes = __webpack_require__(35);
+
+	var _heroes2 = _interopRequireDefault(_heroes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+		template: (0, _heroes2.default)(),
+		$routeConfig: [{ path: '/', name: 'HeroList', component: 'heroList', useAsDefault: true }, { path: '/:id', name: 'HeroDetail', component: 'heroDetail' }]
+	};
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
 
 	module.exports = function template(locals) {
 	var buf = [];
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div class=\"app\"><nav><a ng-link=\"['Home']\">home</a><a ng-link=\"['About']\">about</a></nav><ng-outlet></ng-outlet></div>");;return buf.join("");
+	buf.push("<h2>Heroes</h2><ng-outlet></ng-outlet>");;return buf.join("");
 	}
 
 /***/ },
-/* 30 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	/**
-	 * Merge two attribute objects giving precedence
-	 * to values in object `b`. Classes are special-cased
-	 * allowing for arrays and merging/joining appropriately
-	 * resulting in a string.
-	 *
-	 * @param {Object} a
-	 * @param {Object} b
-	 * @return {Object} a
-	 * @api private
-	 */
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
 
-	exports.merge = function merge(a, b) {
-	  if (arguments.length === 1) {
-	    var attrs = a[0];
-	    for (var i = 1; i < a.length; i++) {
-	      attrs = merge(attrs, a[i]);
-	    }
-	    return attrs;
-	  }
-	  var ac = a['class'];
-	  var bc = b['class'];
+	var _heroList = __webpack_require__(37);
 
-	  if (ac || bc) {
-	    ac = ac || [];
-	    bc = bc || [];
-	    if (!Array.isArray(ac)) ac = [ac];
-	    if (!Array.isArray(bc)) bc = [bc];
-	    a['class'] = ac.concat(bc).filter(nulls);
-	  }
+	var _heroList2 = _interopRequireDefault(_heroList);
 
-	  for (var key in b) {
-	    if (key != 'class') {
-	      a[key] = b[key];
-	    }
-	  }
+	var _heroList3 = __webpack_require__(38);
 
-	  return a;
+	var _heroList4 = _interopRequireDefault(_heroList3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+		template: (0, _heroList2.default)(),
+		controller: _heroList4.default
 	};
-
-	/**
-	 * Filter null `val`s.
-	 *
-	 * @param {*} val
-	 * @return {Boolean}
-	 * @api private
-	 */
-
-	function nulls(val) {
-	  return val != null && val !== '';
-	}
-
-	/**
-	 * join array as classes.
-	 *
-	 * @param {*} val
-	 * @return {String}
-	 */
-	exports.joinClasses = joinClasses;
-	function joinClasses(val) {
-	  return (Array.isArray(val) ? val.map(joinClasses) :
-	    (val && typeof val === 'object') ? Object.keys(val).filter(function (key) { return val[key]; }) :
-	    [val]).filter(nulls).join(' ');
-	}
-
-	/**
-	 * Render the given classes.
-	 *
-	 * @param {Array} classes
-	 * @param {Array.<Boolean>} escaped
-	 * @return {String}
-	 */
-	exports.cls = function cls(classes, escaped) {
-	  var buf = [];
-	  for (var i = 0; i < classes.length; i++) {
-	    if (escaped && escaped[i]) {
-	      buf.push(exports.escape(joinClasses([classes[i]])));
-	    } else {
-	      buf.push(joinClasses(classes[i]));
-	    }
-	  }
-	  var text = joinClasses(buf);
-	  if (text.length) {
-	    return ' class="' + text + '"';
-	  } else {
-	    return '';
-	  }
-	};
-
-
-	exports.style = function (val) {
-	  if (val && typeof val === 'object') {
-	    return Object.keys(val).map(function (style) {
-	      return style + ':' + val[style];
-	    }).join(';');
-	  } else {
-	    return val;
-	  }
-	};
-	/**
-	 * Render the given attribute.
-	 *
-	 * @param {String} key
-	 * @param {String} val
-	 * @param {Boolean} escaped
-	 * @param {Boolean} terse
-	 * @return {String}
-	 */
-	exports.attr = function attr(key, val, escaped, terse) {
-	  if (key === 'style') {
-	    val = exports.style(val);
-	  }
-	  if ('boolean' == typeof val || null == val) {
-	    if (val) {
-	      return ' ' + (terse ? key : key + '="' + key + '"');
-	    } else {
-	      return '';
-	    }
-	  } else if (0 == key.indexOf('data') && 'string' != typeof val) {
-	    if (JSON.stringify(val).indexOf('&') !== -1) {
-	      console.warn('Since Jade 2.0.0, ampersands (`&`) in data attributes ' +
-	                   'will be escaped to `&amp;`');
-	    };
-	    if (val && typeof val.toISOString === 'function') {
-	      console.warn('Jade will eliminate the double quotes around dates in ' +
-	                   'ISO form after 2.0.0');
-	    }
-	    return ' ' + key + "='" + JSON.stringify(val).replace(/'/g, '&apos;') + "'";
-	  } else if (escaped) {
-	    if (val && typeof val.toISOString === 'function') {
-	      console.warn('Jade will stringify dates in ISO form after 2.0.0');
-	    }
-	    return ' ' + key + '="' + exports.escape(val) + '"';
-	  } else {
-	    if (val && typeof val.toISOString === 'function') {
-	      console.warn('Jade will stringify dates in ISO form after 2.0.0');
-	    }
-	    return ' ' + key + '="' + val + '"';
-	  }
-	};
-
-	/**
-	 * Render the given attributes object.
-	 *
-	 * @param {Object} obj
-	 * @param {Object} escaped
-	 * @return {String}
-	 */
-	exports.attrs = function attrs(obj, terse){
-	  var buf = [];
-
-	  var keys = Object.keys(obj);
-
-	  if (keys.length) {
-	    for (var i = 0; i < keys.length; ++i) {
-	      var key = keys[i]
-	        , val = obj[key];
-
-	      if ('class' == key) {
-	        if (val = joinClasses(val)) {
-	          buf.push(' ' + key + '="' + val + '"');
-	        }
-	      } else {
-	        buf.push(exports.attr(key, val, false, terse));
-	      }
-	    }
-	  }
-
-	  return buf.join('');
-	};
-
-	/**
-	 * Escape the given string of `html`.
-	 *
-	 * @param {String} html
-	 * @return {String}
-	 * @api private
-	 */
-
-	var jade_encode_html_rules = {
-	  '&': '&amp;',
-	  '<': '&lt;',
-	  '>': '&gt;',
-	  '"': '&quot;'
-	};
-	var jade_match_html = /[&<>"]/g;
-
-	function jade_encode_char(c) {
-	  return jade_encode_html_rules[c] || c;
-	}
-
-	exports.escape = jade_escape;
-	function jade_escape(html){
-	  var result = String(html).replace(jade_match_html, jade_encode_char);
-	  if (result === '' + html) return html;
-	  else return result;
-	};
-
-	/**
-	 * Re-throw the given `err` in context to the
-	 * the jade in `filename` at the given `lineno`.
-	 *
-	 * @param {Error} err
-	 * @param {String} filename
-	 * @param {String} lineno
-	 * @api private
-	 */
-
-	exports.rethrow = function rethrow(err, filename, lineno, str){
-	  if (!(err instanceof Error)) throw err;
-	  if ((typeof window != 'undefined' || !filename) && !str) {
-	    err.message += ' on line ' + lineno;
-	    throw err;
-	  }
-	  try {
-	    str = str || __webpack_require__(31).readFileSync(filename, 'utf8')
-	  } catch (ex) {
-	    rethrow(err, null, lineno)
-	  }
-	  var context = 3
-	    , lines = str.split('\n')
-	    , start = Math.max(lineno - context, 0)
-	    , end = Math.min(lines.length, lineno + context);
-
-	  // Error context
-	  var context = lines.slice(start, end).map(function(line, i){
-	    var curr = i + start + 1;
-	    return (curr == lineno ? '  > ' : '    ')
-	      + curr
-	      + '| '
-	      + line;
-	  }).join('\n');
-
-	  // Alter exception message
-	  err.path = filename;
-	  err.message = (filename || 'Jade') + ':' + lineno
-	    + '\n' + context + '\n\n' + err.message;
-	  throw err;
-	};
-
-	exports.DebugItem = function DebugItem(lineno, filename) {
-	  this.lineno = lineno;
-	  this.filename = filename;
-	}
-
 
 /***/ },
-/* 31 */
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div ng-repeat=\"hero in $ctrl.heroes\" ng-class=\"{selected: $ctrl.isSelected(hero)}\"><a ng-link=\"['HeroDetail', {id: hero.id}]\">{{ hero.name }}</a></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _heroes = __webpack_require__(33);
+
+	var _heroes2 = _interopRequireDefault(_heroes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = ['heroService', function (heroService) {
+		var selectedId = null;
+		var $ctrl = this;
+
+		this.$routerOnActivate = function (next) {
+			heroService.getHeroes().then(function (heroes) {
+				$ctrl.heroes = heroes;
+				selectedId = next.params.id;
+			});
+		};
+
+		this.isSelected = function (hero) {
+			return hero.id == selectedId;
+		};
+	}];
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _heroDetail = __webpack_require__(40);
+
+	var _heroDetail2 = _interopRequireDefault(_heroDetail);
+
+	var _heroDetail3 = __webpack_require__(41);
+
+	var _heroDetail4 = _interopRequireDefault(_heroDetail3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+		template: (0, _heroDetail2.default)(),
+		bindings: { $router: '<' },
+		controller: _heroDetail4.default
+	};
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div ng-if=\"$ctrl.hero\"><h3>\"{{ $ctrl.hero.name }}\"</h3><div><label>ID: {{ $ctrl.hero.id }}</label></div><div><label>Name:</label><input ng-model=\"$ctrl.hero.name\" placeholder=\"name\"></div><button ng-click=\"$ctrl.goHeroes()\">Back</button></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _heroes = __webpack_require__(33);
+
+	var _heroes2 = _interopRequireDefault(_heroes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = ['heroService', function (heroService) {
+		var _this = this;
+
+		var $ctrl = this;
+
+		this.$routerOnActivate = function (next) {
+			var id = next.params.id;
+			heroService.getHero(id).then(function (hero) {
+				$ctrl.hero = hero;
+			});
+		};
+
+		this.goHeroes = function () {
+			var heroId = _this.hero && _this.hero.id;
+			_this.$router.navigate(['HeroList', { id: heroId }]);
+		};
+	}];
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _angular = __webpack_require__(1);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _crisis = __webpack_require__(43);
+
+	var _crisis2 = _interopRequireDefault(_crisis);
+
+	var _crisis3 = __webpack_require__(44);
+
+	var _crisis4 = _interopRequireDefault(_crisis3);
+
+	var _crisisList = __webpack_require__(46);
+
+	var _crisisList2 = _interopRequireDefault(_crisisList);
+
+	var _crisisDetail = __webpack_require__(49);
+
+	var _crisisDetail2 = _interopRequireDefault(_crisisDetail);
+
+	var _dialog = __webpack_require__(52);
+
+	var _dialog2 = _interopRequireDefault(_dialog);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _angular2.default.module('crisis-center', ['dialog']).service('crisisService', _crisis2.default).component('crisisCenter', _crisis4.default).component('crisisList', _crisisList2.default).component('crisisDetail', _crisisDetail2.default);
+
+/***/ },
+/* 43 */
 /***/ function(module, exports) {
 
-	/* (ignored) */
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var crisisService = ['$q', function ($q) {
+
+		var crisisPromise = $q.when([{ id: 1, name: 'Princess Held Captive' }, { id: 2, name: 'Dragon Burning Cities' }, { id: 3, name: 'Giant Asteroid Heading For Earth' }, { id: 4, name: 'Release Deadline Looms' }]);
+
+		this.getCrises = function () {
+			return crisisPromise;
+		};
+
+		this.getCrisis = function (id) {
+			return crisisPromise.then(function (crises) {
+				for (var i = 0; i < crises.length; i++) {
+					if (crises[i].id == id) return crises[i];
+				}
+			});
+		};
+	}];
+
+	exports.default = crisisService;
 
 /***/ },
-/* 32 */
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _crisis = __webpack_require__(45);
+
+	var _crisis2 = _interopRequireDefault(_crisis);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+		template: (0, _crisis2.default)(),
+		$routeConfig: [{ path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true }, { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' }]
+	};
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<h2>Crisis Center</h2><ng-outlet></ng-outlet>");;return buf.join("");
+	}
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _crisisList = __webpack_require__(47);
+
+	var _crisisList2 = _interopRequireDefault(_crisisList);
+
+	var _crisisList3 = __webpack_require__(48);
+
+	var _crisisList4 = _interopRequireDefault(_crisisList3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+		template: (0, _crisisList2.default)(),
+		bindings: { $router: '<' },
+		controller: _crisisList4.default
+	};
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<ul><li ng-repeat=\"crisis in $ctrl.crises\" ng-class=\"{selected: $ctrl.isSelected(crisis)}\" ng-click=\"$ctrl.onSelect(crisis)\"><span class=\"badge\">{{ crisis.id }}</span>{{ crisis.name }}</li></ul>");;return buf.join("");
+	}
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _crisis = __webpack_require__(43);
+
+	var _crisis2 = _interopRequireDefault(_crisis);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = ['crisisService', '$scope', function (crisisService, $scope) {
+		var _this = this,
+		    _arguments = arguments;
+
+		var selectedId = null;
+		var $ctrl = $scope.$ctrl = {};
+
+		this.$routerOnActivate = function (next) {
+
+			console.log('$routerOnActivate', _this, _arguments);
+
+			crisisService.getCrises().then(function (crises) {
+				$ctrl.crises = crises;
+				selectedId = next.params.id;
+			});
+		};
+
+		$ctrl.isSelected = function (crisis) {
+			return crisis.id == selectedId;
+		};
+
+		$ctrl.onSelect = function (crisis) {
+			_this.$router.navigate(['CrisisDetail', { id: crisis.id }]);
+		};
+	}];
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _crisisDetail = __webpack_require__(50);
+
+	var _crisisDetail2 = _interopRequireDefault(_crisisDetail);
+
+	var _crisisDetail3 = __webpack_require__(51);
+
+	var _crisisDetail4 = _interopRequireDefault(_crisisDetail3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+		template: (0, _crisisDetail2.default)(),
+		bindings: { $router: '<' },
+		controller: _crisisDetail4.default
+	};
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<div ng-if=\"$ctrl.crisis\"><h3>\"{{ $ctrl.editName }}\"</h3><div><label>Id: {{ $ctrl.crisis.id }}</label></div><div><label>Name:</label><input ng-model=\"$ctrl.editName\" placeholder=\"name\"></div><button ng-click=\"$ctrl.save()\">Save</button><button ng-click=\"$ctrl.cancel()\">Cancel</button></div>");;return buf.join("");
+	}
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _crisis = __webpack_require__(43);
+
+	var _crisis2 = _interopRequireDefault(_crisis);
+
+	var _dialog = __webpack_require__(52);
+
+	var _dialog2 = _interopRequireDefault(_dialog);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = ['crisisService', 'dialogService', function (crisisService, dialogService) {
+		var _this = this;
+
+		var $ctrl = this;
+
+		this.$routerOnActivate = function (next) {
+			var id = next.params.id;
+			crisisService.getCrisis(id).then(function (crisis) {
+				if (crisis) {
+					$ctrl.editName = crisis.name;
+					$ctrl.crisis = crisis;
+				} else {
+					$ctrl.gotoCrises();
+				}
+			});
+		};
+
+		this.$routerCanDeactivate = function () {
+			if (!_this.crisis || _this.crisis.name === _this.editName) {
+				return true;
+			}
+
+			return dialogService.confirm('Discard changes?');
+		};
+
+		this.cancel = function () {
+			$ctrl.editName = $ctrl.crisis.name;
+			$ctrl.gotoCrises();
+		};
+
+		this.save = function () {
+			$ctrl.crisis.name = $ctrl.editName;
+			$ctrl.gotoCrises();
+		};
+
+		this.gotoCrises = function () {
+			var crisisId = $ctrl.crisis && $ctrl.crisis.id;
+			_this.$router.navigate(['CrisisList', { id: crisisId }]);
+		};
+	}];
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _angular = __webpack_require__(1);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _angular2.default.module('dialog', []).service('dialogService', ['$q', function ($q) {
+		this.confirm = function (message) {
+			return $q.when(window.confirm(message || 'Is it OK?'));
+		};
+	}]);
+
+/***/ },
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(33);
+	var content = __webpack_require__(54);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(12)(content, {});
+	var update = __webpack_require__(14)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -36796,10 +37398,10 @@
 	}
 
 /***/ },
-/* 33 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(11)();
+	exports = module.exports = __webpack_require__(13)();
 	// imports
 
 
@@ -36810,7 +37412,7 @@
 
 
 /***/ },
-/* 34 */
+/* 55 */
 /***/ function(module, exports) {
 
 	(function(){
@@ -39903,62 +40505,6 @@
 
 	}());
 
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(30);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<h1>{{vm.name}}</h1><section>About us.</section>");;return buf.join("");
-	}
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(30);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<header><hero></hero></header><main><div><h1>Found in {{ vm.name }}.jade</h1></div></main>");;return buf.join("");
-	}
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(30);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<section class=\"hero\"><h1>This is the NG6 starter</h1><h3>You can find me inside {{ vm.name }}.jade</h3></section>");;return buf.join("");
-	}
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(30);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<nav class=\"navbar\"><h1>{{ vm.name }}</h1></nav>");;return buf.join("");
-	}
 
 /***/ }
 /******/ ]);
