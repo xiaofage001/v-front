@@ -1,2 +1,4 @@
 nav.navbar
   h1 {{ vm.name }}
+  for component in components
+    a(ng-link="['#{component.name}']") #{component.value}

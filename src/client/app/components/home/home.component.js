@@ -4,7 +4,7 @@ import controller from './home.controller';
 const homeComponent = {
   restrict: 'E',
   bindings: {},
-  template: template(),
+  template: template({ fucks: ['you', 'he', 'she'] }),
   controller,
   controllerAs: 'vm',
 };
