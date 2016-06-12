@@ -66,7 +66,7 @@
 
 	var _index4 = _interopRequireDefault(_index3);
 
-	__webpack_require__(29);
+	__webpack_require__(28);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -34775,15 +34775,15 @@
 
 	var _crisis4 = _interopRequireDefault(_crisis3);
 
-	var _crisisList = __webpack_require__(22);
+	var _crisisList = __webpack_require__(21);
 
 	var _crisisList2 = _interopRequireDefault(_crisisList);
 
-	var _crisisDetail = __webpack_require__(25);
+	var _crisisDetail = __webpack_require__(24);
 
 	var _crisisDetail2 = _interopRequireDefault(_crisisDetail);
 
-	var _dialog = __webpack_require__(28);
+	var _dialog = __webpack_require__(27);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
@@ -34821,22 +34821,17 @@
 
 /***/ },
 /* 20 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-
-	var _crisis = __webpack_require__(21);
-
-	var _crisis2 = _interopRequireDefault(_crisis);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	//import template from './crisis.jade';
 
 	exports.default = {
-		template: (0, _crisis2.default)(),
+		templateUrl: './crisis.jade',
 		$routeConfig: [{ path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true }, { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' }]
 	};
 
@@ -34844,31 +34839,17 @@
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(6);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<h2>Crisis Center</h2><ng-outlet></ng-outlet>");;return buf.join("");
-	}
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 
-	var _crisisList = __webpack_require__(23);
+	var _crisisList = __webpack_require__(22);
 
 	var _crisisList2 = _interopRequireDefault(_crisisList);
 
-	var _crisisList3 = __webpack_require__(24);
+	var _crisisList3 = __webpack_require__(23);
 
 	var _crisisList4 = _interopRequireDefault(_crisisList3);
 
@@ -34881,7 +34862,7 @@
 	};
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(6);
@@ -34895,7 +34876,7 @@
 	}
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34937,7 +34918,7 @@
 	}];
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34946,11 +34927,11 @@
 		value: true
 	});
 
-	var _crisisDetail = __webpack_require__(26);
+	var _crisisDetail = __webpack_require__(25);
 
 	var _crisisDetail2 = _interopRequireDefault(_crisisDetail);
 
-	var _crisisDetail3 = __webpack_require__(27);
+	var _crisisDetail3 = __webpack_require__(26);
 
 	var _crisisDetail4 = _interopRequireDefault(_crisisDetail3);
 
@@ -34963,7 +34944,7 @@
 	};
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(6);
@@ -34977,7 +34958,7 @@
 	}
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34990,7 +34971,7 @@
 
 	var _crisis2 = _interopRequireDefault(_crisis);
 
-	var _dialog = __webpack_require__(28);
+	var _dialog = __webpack_require__(27);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
@@ -35038,7 +35019,7 @@
 	}];
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35060,16 +35041,16 @@
 	}]);
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(30);
+	var content = __webpack_require__(29);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(32)(content, {});
+	var update = __webpack_require__(31)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -35086,10 +35067,10 @@
 	}
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(31)();
+	exports = module.exports = __webpack_require__(30)();
 	// imports
 
 
@@ -35100,7 +35081,7 @@
 
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports) {
 
 	/*
@@ -35156,7 +35137,7 @@
 
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
