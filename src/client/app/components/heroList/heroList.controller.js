@@ -1,17 +1,28 @@
-import heroService from '../heroes/heroes.service';
+/**
+ * HeroListController 业务处理类（包含２个方法）
+ * 
+ * 1、页面加载时（$routerOnActivate　当前路由在活动时）获取所有的heroes
+ * 
+ * 2、判断当前hero是否被选用
+ * 
+ */
+export default class HeroList {
 
-export default ['heroService', function(heroService) {
-	var selectedId = null;
-	var $ctrl = this;
-
-	this.$routerOnActivate = next => {
-		heroService.getHeroes().then(heroes => {
-			$ctrl.heroes = heroes;
-			selectedId = next.params.id;
+	constructor(heroService) {
+		this.selectedId = null;
+		this._heroService = heroService;
+	}
+	
+	$routerOnActivate(next) {
+		this._heroService.getHeroes().then(heroes => {
+			this.heroes = heroes;
+			this.selectedId = next.params.id;
 		});
-	};
+	}
 
-	this.isSelected = hero => {
-		return (hero.id == selectedId);
-	};
-}];
+	isSelected(hero) {
+		return (hero.id == this.selectedId);
+	}
+}
+
+HeroList.$inject = ['heroService'];

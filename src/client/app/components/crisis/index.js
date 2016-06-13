@@ -14,4 +14,5 @@ export default angular.module('crisis-center', ['dialog'])
 .component('crisisCenter', CrisisComponent)
 
 .component('crisisList', CrisisListComponent)
-.component('crisisDetail', CrisisDetailComponent);
+.component('crisisDetail', CrisisDetailComponent)
+.name;

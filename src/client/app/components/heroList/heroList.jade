@@ -1,2 +1,12 @@
-div(ng-repeat="hero in $ctrl.heroes" ng-class="{selected: $ctrl.isSelected(hero)}")
-	a(ng-link="['HeroDetail', {id: hero.id}]") {{ hero.name }}
+ul.heroes
+	li(ng-repeat="hero in vm.heroes track by $index" ng-class="{selected: vm.isSelected(hero)}")
+		span.hero-element
+			span.badge {{ hero.id }}
+			{{hero.name}}
+		button.delete-button(ng-click="vm.delete(hero, $event)") Delete
+button(ng-click="vm.addHero") Add New Hero
+div(ng-if="vm.addingHero")
+	hero-detail
+div(ng-if="vm.selectedHero")
+	h2 {{ vm.selectedHero.name | uppercase }} is My Hero
+	button(ng-click="vm.gotoDetail()") View Details

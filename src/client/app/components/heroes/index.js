@@ -10,4 +10,5 @@ export default angular.module('heroes', [])
 
 .component('heroes', HeroesComponent)
 .component('heroList', HeroListComponent)
-.component('heroDetail', HeroDetailComponent);
+.component('heroDetail', HeroDetailComponent)
+.name;

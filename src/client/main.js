@@ -58,7 +58,7 @@
 
 	var _ui2 = _interopRequireDefault(_ui);
 
-	var _components = __webpack_require__(21);
+	var _components = __webpack_require__(15);
 
 	var _components2 = _interopRequireDefault(_components);
 
@@ -66,21 +66,21 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _index = __webpack_require__(32);
+	var _heroes = __webpack_require__(32);
 
-	var _index2 = _interopRequireDefault(_index);
+	var _heroes2 = _interopRequireDefault(_heroes);
 
-	var _index3 = __webpack_require__(42);
+	var _crisis = __webpack_require__(44);
 
-	var _index4 = _interopRequireDefault(_index3);
-
-	__webpack_require__(53);
+	var _crisis2 = _interopRequireDefault(_crisis);
 
 	__webpack_require__(55);
 
+	__webpack_require__(57);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('app', [_angularUiRouter2.default, _ui2.default, _components2.default, 'ngComponentRouter', 'heroes', 'crisis-center'])
+	_angular2.default.module('app', [_angularUiRouter2.default, _ui2.default, _components2.default, _heroes2.default, _crisis2.default, 'ngComponentRouter'])
 	// config the top level routed App component
 	.value('$routerRootComponent', 'app').component('app', _app2.default);
 
@@ -31126,7 +31126,7 @@
 
 	/**
 	 * State-based routing for AngularJS
-	 * @version v0.3.0
+	 * @version v0.3.1
 	 * @link http://angular-ui.github.com/
 	 * @license MIT License, http://www.opensource.org/licenses/MIT
 	 */
@@ -34481,7 +34481,7 @@
 	        $urlRouter.update(true);
 
 	        return $state.current;
-	      }, function (error) {
+	      }).then(null, function (error) {
 	        if ($state.transition !== transition) return TransitionSuperseded;
 
 	        $state.transition = null;
@@ -35112,7 +35112,7 @@
 	          }
 
 	          if (currentEl) {
-	            var $uiViewData = currentEl.data('$uiView');
+	            var $uiViewData = currentEl.data('$uiViewAnim');
 	            renderer.leave(currentEl, function() {
 	              $uiViewData.$$animLeave.resolve();
 	              previousEl = null;
@@ -35125,7 +35125,7 @@
 
 	        function updateView(firstTime) {
 	          var newScope,
-	              name            = getUiViewName(scope, attrs, inherited, $interpolate),
+	              name            = getUiViewName(scope, attrs, $element, $interpolate),
 	              previousLocals  = name && $state.$current && $state.$current.locals[name];
 
 	          if (!firstTime && previousLocals === latestLocals) return; // nothing to do
@@ -35148,14 +35148,14 @@
 
 	          var clone = $transclude(newScope, function(clone) {
 	            var animEnter = $q.defer(), animLeave = $q.defer();
-	            var viewData = {
-	              name: name,
+	            var viewAnimData = {
 	              $animEnter: animEnter.promise,
 	              $animLeave: animLeave.promise,
 	              $$animLeave: animLeave
 	            };
 
-	            renderer.enter(clone.data('$uiView', viewData), $element, function onUiViewEnter() {
+	            clone.data('$uiViewAnim', viewAnimData);
+	            renderer.enter(clone, $element, function onUiViewEnter() {
 	              animEnter.resolve();
 	              if(currentScope) {
 	                currentScope.$emit('$viewContentAnimationEnded');
@@ -35200,14 +35200,14 @@
 	      var initial = tElement.html();
 	      return function (scope, $element, attrs) {
 	        var current = $state.$current,
-	            $uiViewData = $element.data('$uiView'),
-	            locals  = current && current.locals[$uiViewData.name];
+	            name = getUiViewName(scope, attrs, $element, $interpolate),
+	            locals  = current && current.locals[name];
 
 	        if (! locals) {
 	          return;
 	        }
 
-	        extend($uiViewData, { state: locals.$$state });
+	        $element.data('$uiView', { name: name, state: locals.$$state });
 	        $element.html(locals.$template ? locals.$template : initial);
 
 	        var resolveData = angular.extend({}, locals);
@@ -35238,9 +35238,10 @@
 	 * Shared ui-view code for both directives:
 	 * Given scope, element, and its attributes, return the view's name
 	 */
-	function getUiViewName(scope, attrs, inherited, $interpolate) {
+	function getUiViewName(scope, attrs, element, $interpolate) {
 	  var name = $interpolate(attrs.uiView || attrs.name || '')(scope);
-	  return name.indexOf('@') >= 0 ?  name :  (name + '@' + (inherited ? inherited.state.name : ''));
+	  var uiViewCreatedBy = element.inheritedData('$uiView');
+	  return name.indexOf('@') >= 0 ?  name :  (name + '@' + (uiViewCreatedBy ? uiViewCreatedBy.state.name : ''));
 	}
 
 	angular.module('ui.router.state').directive('uiView', $ViewDirective);
@@ -35718,11 +35719,11 @@
 
 	var _navbar2 = _interopRequireDefault(_navbar);
 
-	var _hero = __webpack_require__(15);
+	var _hero = __webpack_require__(24);
 
 	var _hero2 = _interopRequireDefault(_hero);
 
-	var _user = __webpack_require__(19);
+	var _user = __webpack_require__(28);
 
 	var _user2 = _interopRequireDefault(_user);
 
@@ -35778,7 +35779,7 @@
 
 	__webpack_require__(11);
 
-	var _components = __webpack_require__(21);
+	var _components = __webpack_require__(15);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36142,7 +36143,7 @@
 
 
 	// module
-	exports.push([module.id, ".navbar {\n  background-color: orange;\n}\n", ""]);
+	exports.push([module.id, ".navbar {\n  background-color: orange;\n}\n.navbar a {\n  display: inline-block;\n  text-decoration: none;\n  line-height: 1.4em;\n  padding: 4px 10px;\n  background-color: #eee;\n  color: #000;\n  border-radius: 4px;\n  margin: 2px 6px;\n}\n.navbar a:hover {\n  color: gray;\n}\n", ""]);
 
 	// exports
 
@@ -36464,22 +36465,45 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.componentsList = undefined;
 
 	var _angular = __webpack_require__(1);
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _angularUiRouter = __webpack_require__(3);
+	var _home = __webpack_require__(16);
 
-	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
+	var _home2 = _interopRequireDefault(_home);
 
-	var _hero = __webpack_require__(16);
+	var _about = __webpack_require__(20);
 
-	var _hero2 = _interopRequireDefault(_hero);
+	var _about2 = _interopRequireDefault(_about);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = _angular2.default.module('hero', [_angularUiRouter2.default]).component('hero', _hero2.default).name;
+	function upperFirstCharactor(name) {
+	  if (_angular2.default.isString(name) && name.length > 0) {
+	    return name.charAt(0).toUpperCase() + name.substr(1);
+	  }
+	  return null;
+	}
+
+	var componentsList = [{
+	  name: upperFirstCharactor(_home2.default),
+	  value: '家'
+	}, {
+	  name: upperFirstCharactor(_about2.default),
+	  value: '关于'
+	}, {
+	  name: 'CrisisCenter',
+	  value: 'Crisis'
+	}, {
+	  name: 'Heroes',
+	  value: 'Heroes'
+	}];
+
+	exports.default = _angular2.default.module('app.components', [_home2.default, _about2.default]).name;
+	exports.componentsList = componentsList;
 
 /***/ },
 /* 16 */
@@ -36491,11 +36515,233 @@
 	  value: true
 	});
 
-	var _hero = __webpack_require__(17);
+	var _angular = __webpack_require__(1);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _angularUiRouter = __webpack_require__(3);
+
+	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
+
+	var _home = __webpack_require__(17);
+
+	var _home2 = _interopRequireDefault(_home);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _angular2.default.module('home', [_angularUiRouter2.default]).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+	  'ngInject';
+
+	  $urlRouterProvider.otherwise('/');
+
+	  $stateProvider.state('home', {
+	    url: '/',
+	    template: '<home></home>'
+	  });
+	}]).component('home', _home2.default).name;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _home = __webpack_require__(18);
+
+	var _home2 = _interopRequireDefault(_home);
+
+	var _home3 = __webpack_require__(19);
+
+	var _home4 = _interopRequireDefault(_home3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var homeComponent = {
+	  restrict: 'E',
+	  bindings: {},
+	  template: (0, _home2.default)({ fucks: ['you', 'he', 'she'] }),
+	  controller: _home4.default,
+	  controllerAs: 'vm'
+	};
+
+	exports.default = homeComponent;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<header><hero></hero></header><main><div><h1>Found in {{ vm.name }}.jade</h1></div></main>");;return buf.join("");
+	}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var HomeController = function HomeController() {
+	  _classCallCheck(this, HomeController);
+
+	  this.name = 'home';
+	};
+
+	exports.default = HomeController;
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _angular = __webpack_require__(1);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _angularUiRouter = __webpack_require__(3);
+
+	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
+
+	var _about = __webpack_require__(21);
+
+	var _about2 = _interopRequireDefault(_about);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _angular2.default.module('about', [_angularUiRouter2.default]).config(["$stateProvider", function ($stateProvider) {
+	  'ngInject';
+
+	  $stateProvider.state('about', {
+	    url: '/about',
+	    template: '<about></about>'
+	  });
+	}]).component('about', _about2.default).name;
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _about = __webpack_require__(22);
+
+	var _about2 = _interopRequireDefault(_about);
+
+	var _about3 = __webpack_require__(23);
+
+	var _about4 = _interopRequireDefault(_about3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var aboutComponent = {
+	  restrict: 'E',
+	  bindings: {},
+	  template: (0, _about2.default)(),
+	  controller: _about4.default,
+	  controllerAs: 'vm'
+	};
+
+	exports.default = aboutComponent;
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<h1>{{vm.name}}</h1><section>About us.</section>");;return buf.join("");
+	}
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var AboutController = function AboutController() {
+	  _classCallCheck(this, AboutController);
+
+	  this.name = 'about';
+	};
+
+	exports.default = AboutController;
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _angular = __webpack_require__(1);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _angularUiRouter = __webpack_require__(3);
+
+	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
+
+	var _hero = __webpack_require__(25);
 
 	var _hero2 = _interopRequireDefault(_hero);
 
-	var _hero3 = __webpack_require__(18);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _angular2.default.module('hero', [_angularUiRouter2.default]).component('hero', _hero2.default).name;
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _hero = __webpack_require__(26);
+
+	var _hero2 = _interopRequireDefault(_hero);
+
+	var _hero3 = __webpack_require__(27);
 
 	var _hero4 = _interopRequireDefault(_hero3);
 
@@ -36512,7 +36758,7 @@
 	exports.default = heroComponent;
 
 /***/ },
-/* 17 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(8);
@@ -36526,7 +36772,7 @@
 	}
 
 /***/ },
-/* 18 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -36546,7 +36792,7 @@
 	exports.default = HeroController;
 
 /***/ },
-/* 19 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36559,7 +36805,7 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _user = __webpack_require__(20);
+	var _user = __webpack_require__(29);
 
 	var _user2 = _interopRequireDefault(_user);
 
@@ -36568,7 +36814,7 @@
 	exports.default = _angular2.default.module('user', []).factory('User', _user2.default).name;
 
 /***/ },
-/* 20 */
+/* 29 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -36590,245 +36836,6 @@
 
 	  return { getUser: getUser, isSignedIn: isSignedIn };
 	};
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.componentsList = undefined;
-
-	var _angular = __webpack_require__(1);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	var _home = __webpack_require__(22);
-
-	var _home2 = _interopRequireDefault(_home);
-
-	var _about = __webpack_require__(26);
-
-	var _about2 = _interopRequireDefault(_about);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function upperFirstCharactor(name) {
-	  if (_angular2.default.isString(name) && name.length > 0) {
-	    return name.charAt(0).toUpperCase() + name.substr(1);
-	  }
-	  return null;
-	}
-
-	var componentsList = [{
-	  name: upperFirstCharactor(_home2.default),
-	  value: '家'
-	}, {
-	  name: upperFirstCharactor(_about2.default),
-	  value: '关于'
-	}];
-
-	exports.default = _angular2.default.module('app.components', [_home2.default, _about2.default]).name;
-	exports.componentsList = componentsList;
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _angular = __webpack_require__(1);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	var _angularUiRouter = __webpack_require__(3);
-
-	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
-
-	var _home = __webpack_require__(23);
-
-	var _home2 = _interopRequireDefault(_home);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _angular2.default.module('home', [_angularUiRouter2.default]).config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
-	  'ngInject';
-
-	  $urlRouterProvider.otherwise('/');
-
-	  $stateProvider.state('home', {
-	    url: '/',
-	    template: '<home></home>'
-	  });
-	}]).component('home', _home2.default).name;
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _home = __webpack_require__(24);
-
-	var _home2 = _interopRequireDefault(_home);
-
-	var _home3 = __webpack_require__(25);
-
-	var _home4 = _interopRequireDefault(_home3);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var homeComponent = {
-	  restrict: 'E',
-	  bindings: {},
-	  template: (0, _home2.default)({ fucks: ['you', 'he', 'she'] }),
-	  controller: _home4.default,
-	  controllerAs: 'vm'
-	};
-
-	exports.default = homeComponent;
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(8);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<header><hero></hero></header><main><div><h1>Found in {{ vm.name }}.jade</h1></div></main>");;return buf.join("");
-	}
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var HomeController = function HomeController() {
-	  _classCallCheck(this, HomeController);
-
-	  this.name = 'home';
-	};
-
-	exports.default = HomeController;
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _angular = __webpack_require__(1);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	var _angularUiRouter = __webpack_require__(3);
-
-	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
-
-	var _about = __webpack_require__(27);
-
-	var _about2 = _interopRequireDefault(_about);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _angular2.default.module('about', [_angularUiRouter2.default]).config(["$stateProvider", function ($stateProvider) {
-	  'ngInject';
-
-	  $stateProvider.state('about', {
-	    url: '/about',
-	    template: '<about></about>'
-	  });
-	}]).component('about', _about2.default).name;
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _about = __webpack_require__(28);
-
-	var _about2 = _interopRequireDefault(_about);
-
-	var _about3 = __webpack_require__(29);
-
-	var _about4 = _interopRequireDefault(_about3);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var aboutComponent = {
-	  restrict: 'E',
-	  bindings: {},
-	  template: (0, _about2.default)(),
-	  controller: _about4.default,
-	  controllerAs: 'vm'
-	};
-
-	exports.default = aboutComponent;
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(8);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<h1>{{vm.name}}</h1><section>About us.</section>");;return buf.join("");
-	}
-
-/***/ },
-/* 29 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var AboutController = function AboutController() {
-	  _classCallCheck(this, AboutController);
-
-	  this.name = 'about';
-	};
-
-	exports.default = AboutController;
 
 /***/ },
 /* 30 */
@@ -36891,13 +36898,13 @@
 
 	var _heroList2 = _interopRequireDefault(_heroList);
 
-	var _heroDetail = __webpack_require__(39);
+	var _heroDetail = __webpack_require__(41);
 
 	var _heroDetail2 = _interopRequireDefault(_heroDetail);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = _angular2.default.module('heroes', []).service('heroService', _heroes2.default).component('heroes', _heroes4.default).component('heroList', _heroList2.default).component('heroDetail', _heroDetail2.default);
+	exports.default = _angular2.default.module('heroes', []).service('heroService', _heroes2.default).component('heroes', _heroes4.default).component('heroList', _heroList2.default).component('heroDetail', _heroDetail2.default).name;
 
 /***/ },
 /* 33 */
@@ -36908,21 +36915,50 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.default = ['$q', function ($q) {
-		var heroesPromise = $q.when([{ id: 11, name: 'Mr. Nice' }, { id: 12, name: 'Narco' }, { id: 13, name: 'Bombasto' }, { id: 14, name: 'Celeritas' }, { id: 15, name: 'Magneta' }, { id: 16, name: 'RubberMan' }]);
 
-		this.getHeroes = function () {
-			return heroesPromise;
-		};
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-		this.getHero = function (id) {
-			return heroesPromise.then(function (heroes) {
-				for (var i = 0; i < heroes.length; i++) {
-					if (heroes[i].id == id) return heroes[i];
-				}
-			});
-		};
-	}];
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * HeroService 服务类（包含２个方法）
+	 *
+	 * 1、getHeroes　获取所有英雄
+	 * 
+	 * 2、getHero　根据id获取改英雄
+	 * 
+	 */
+
+	var HeroService = function () {
+		function HeroService($q) {
+			_classCallCheck(this, HeroService);
+
+			this.heroesPromise = $q.when([{ id: 11, name: 'Mr. Nice' }, { id: 12, name: 'Narco' }, { id: 13, name: 'Bombasto' }, { id: 14, name: 'Celeritas' }, { id: 15, name: 'Magneta' }, { id: 16, name: 'RubberMan' }]);
+		}
+
+		_createClass(HeroService, [{
+			key: 'getHeroes',
+			value: function getHeroes() {
+				return this.heroesPromise;
+			}
+		}, {
+			key: 'getHero',
+			value: function getHero(id) {
+				return this.heroesPromise.then(function (heroes) {
+					for (var i = 0, len = heroes.length; i < len; i++) {
+						if (heroes[i].id === id) return heroes[i];
+					}
+				});
+			}
+		}]);
+
+		return HeroService;
+	}();
+
+	exports.default = HeroService;
+
+
+	HeroService.$inject = ['$q'];
 
 /***/ },
 /* 34 */
@@ -36956,7 +36992,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<h2>Heroes</h2><ng-outlet></ng-outlet>");;return buf.join("");
+	buf.push("<h2>My Heroes</h2><ng-outlet></ng-outlet>");;return buf.join("");
 	}
 
 /***/ },
@@ -36977,11 +37013,14 @@
 
 	var _heroList4 = _interopRequireDefault(_heroList3);
 
+	__webpack_require__(39);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 		template: (0, _heroList2.default)(),
-		controller: _heroList4.default
+		controller: _heroList4.default,
+		controllerAs: 'vm'
 	};
 
 /***/ },
@@ -36995,12 +37034,12 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div ng-repeat=\"hero in $ctrl.heroes\" ng-class=\"{selected: $ctrl.isSelected(hero)}\"><a ng-link=\"['HeroDetail', {id: hero.id}]\">{{ hero.name }}</a></div>");;return buf.join("");
+	buf.push("<ul class=\"heroes\"><li ng-repeat=\"hero in vm.heroes track by $index\" ng-class=\"{selected: vm.isSelected(hero)}\"><span class=\"hero-element\"><span class=\"badge\">{{ hero.id }}</span>{{hero.name}}</span><button ng-click=\"vm.delete(hero, $event)\" class=\"delete-button\">Delete</button></li></ul><button ng-click=\"vm.addHero\">Add New Hero</button><div ng-if=\"vm.addingHero\"><hero-detail></hero-detail></div><div ng-if=\"vm.selectedHero\"><h2>{{ vm.selectedHero.name | uppercase }} is My Hero</h2><button ng-click=\"vm.gotoDetail()\">View Details</button></div>");;return buf.join("");
 	}
 
 /***/ },
 /* 38 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -37008,43 +37047,107 @@
 		value: true
 	});
 
-	var _heroes = __webpack_require__(33);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _heroes2 = _interopRequireDefault(_heroes);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	/**
+	 * HeroListController 业务处理类（包含２个方法）
+	 * 
+	 * 1、页面加载时（$routerOnActivate　当前路由在活动时）获取所有的heroes
+	 * 
+	 * 2、判断当前hero是否被选用
+	 * 
+	 */
 
-	exports.default = ['heroService', function (heroService) {
-		var selectedId = null;
-		var $ctrl = this;
+	var HeroList = function () {
+		function HeroList(heroService) {
+			_classCallCheck(this, HeroList);
 
-		this.$routerOnActivate = function (next) {
-			heroService.getHeroes().then(function (heroes) {
-				$ctrl.heroes = heroes;
-				selectedId = next.params.id;
-			});
-		};
+			this.selectedId = null;
+			this._heroService = heroService;
+		}
 
-		this.isSelected = function (hero) {
-			return hero.id == selectedId;
-		};
-	}];
+		_createClass(HeroList, [{
+			key: '$routerOnActivate',
+			value: function $routerOnActivate(next) {
+				var _this = this;
+
+				this._heroService.getHeroes().then(function (heroes) {
+					_this.heroes = heroes;
+					_this.selectedId = next.params.id;
+				});
+			}
+		}, {
+			key: 'isSelected',
+			value: function isSelected(hero) {
+				return hero.id == this.selectedId;
+			}
+		}]);
+
+		return HeroList;
+	}();
+
+	exports.default = HeroList;
+
+
+	HeroList.$inject = ['heroService'];
 
 /***/ },
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(40);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(14)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js!./../../../../../node_modules/less-loader/index.js!./heroList.less", function() {
+				var newContent = require("!!./../../../../../node_modules/css-loader/index.js!./../../../../../node_modules/less-loader/index.js!./heroList.less");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(13)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".heroes {\n  margin: 0 0 2em 0;\n  list-style-type: none;\n  padding: 0;\n  width: 15em;\n}\n.heroes li {\n  cursor: pointer;\n  position: relative;\n  left: 0;\n  background-color: #EEE;\n  margin: .5em;\n  padding: .3em 0;\n  height: 1.6em;\n  border-radius: 4px;\n}\n.heroes li:hover {\n  color: #607D8B;\n  background-color: #DDD;\n  left: .1em;\n}\n.heroes li.selected:hover {\n  background-color: #BBD8DC !important;\n  color: white;\n}\n.heroes .badge {\n  display: inline-block;\n  font-size: small;\n  color: white;\n  padding: .8em .7em 0 .7em;\n  background-color: #607D8B;\n  line-height: 1em;\n  position: relative;\n  left: -1px;\n  top: -4px;\n  height: 1.8em;\n  margin-right: .8em;\n  border-radius: 4px 0 0 4px;\n}\n.selected {\n  background-color: #CFD8DC !important;\n  color: white;\n}\nbutton {\n  font-family: Arial;\n  background-color: #eee;\n  border: none;\n  padding: 5px 10px;\n  border-radius: 4px;\n  cursor: pointer;\n  cursor: hand;\n}\nbutton:hover {\n  background-color: #cfd8dc;\n}\nbutton.delete-button {\n  float: right;\n  background-color: gray !important;\n  color: white;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 
-	var _heroDetail = __webpack_require__(40);
+	var _heroDetail = __webpack_require__(42);
 
 	var _heroDetail2 = _interopRequireDefault(_heroDetail);
 
-	var _heroDetail3 = __webpack_require__(41);
+	var _heroDetail3 = __webpack_require__(43);
 
 	var _heroDetail4 = _interopRequireDefault(_heroDetail3);
 
@@ -37057,7 +37160,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(8);
@@ -37071,7 +37174,7 @@
 	}
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37105,7 +37208,7 @@
 	}];
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37118,32 +37221,32 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _crisis = __webpack_require__(43);
+	var _crisis = __webpack_require__(45);
 
 	var _crisis2 = _interopRequireDefault(_crisis);
 
-	var _crisis3 = __webpack_require__(44);
+	var _crisis3 = __webpack_require__(46);
 
 	var _crisis4 = _interopRequireDefault(_crisis3);
 
-	var _crisisList = __webpack_require__(46);
+	var _crisisList = __webpack_require__(48);
 
 	var _crisisList2 = _interopRequireDefault(_crisisList);
 
-	var _crisisDetail = __webpack_require__(49);
+	var _crisisDetail = __webpack_require__(51);
 
 	var _crisisDetail2 = _interopRequireDefault(_crisisDetail);
 
-	var _dialog = __webpack_require__(52);
+	var _dialog = __webpack_require__(54);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = _angular2.default.module('crisis-center', ['dialog']).service('crisisService', _crisis2.default).component('crisisCenter', _crisis4.default).component('crisisList', _crisisList2.default).component('crisisDetail', _crisisDetail2.default);
+	exports.default = _angular2.default.module('crisis-center', ['dialog']).service('crisisService', _crisis2.default).component('crisisCenter', _crisis4.default).component('crisisList', _crisisList2.default).component('crisisDetail', _crisisDetail2.default).name;
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -37171,41 +37274,6 @@
 	exports.default = crisisService;
 
 /***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _crisis = __webpack_require__(45);
-
-	var _crisis2 = _interopRequireDefault(_crisis);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = {
-		template: (0, _crisis2.default)(),
-		$routeConfig: [{ path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true }, { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' }]
-	};
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(8);
-
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-
-	buf.push("<h2>Crisis Center</h2><ng-outlet></ng-outlet>");;return buf.join("");
-	}
-
-/***/ },
 /* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -37215,20 +37283,15 @@
 		value: true
 	});
 
-	var _crisisList = __webpack_require__(47);
+	var _crisis = __webpack_require__(47);
 
-	var _crisisList2 = _interopRequireDefault(_crisisList);
-
-	var _crisisList3 = __webpack_require__(48);
-
-	var _crisisList4 = _interopRequireDefault(_crisisList3);
+	var _crisis2 = _interopRequireDefault(_crisis);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-		template: (0, _crisisList2.default)(),
-		bindings: { $router: '<' },
-		controller: _crisisList4.default
+		template: (0, _crisis2.default)(),
+		$routeConfig: [{ path: '/', name: 'CrisisList', component: 'crisisList', useAsDefault: true }, { path: '/:id', name: 'CrisisDetail', component: 'crisisDetail' }]
 	};
 
 /***/ },
@@ -37242,7 +37305,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<ul><li ng-repeat=\"crisis in $ctrl.crises\" ng-class=\"{selected: $ctrl.isSelected(crisis)}\" ng-click=\"$ctrl.onSelect(crisis)\"><span class=\"badge\">{{ crisis.id }}</span>{{ crisis.name }}</li></ul>");;return buf.join("");
+	buf.push("<h2>Crisis Center</h2><ng-outlet></ng-outlet>");;return buf.join("");
 	}
 
 /***/ },
@@ -37255,7 +37318,47 @@
 		value: true
 	});
 
-	var _crisis = __webpack_require__(43);
+	var _crisisList = __webpack_require__(49);
+
+	var _crisisList2 = _interopRequireDefault(_crisisList);
+
+	var _crisisList3 = __webpack_require__(50);
+
+	var _crisisList4 = _interopRequireDefault(_crisisList3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+		template: (0, _crisisList2.default)(),
+		bindings: { $router: '<' },
+		controller: _crisisList4.default
+	};
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(8);
+
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+
+	buf.push("<ul><li ng-repeat=\"crisis in $ctrl.crises\" ng-class=\"{selected: $ctrl.isSelected(crisis)}\" ng-click=\"$ctrl.onSelect(crisis)\"><span class=\"badge\">{{ crisis.id }}</span>{{ crisis.name }}</li></ul>");;return buf.join("");
+	}
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _crisis = __webpack_require__(45);
 
 	var _crisis2 = _interopRequireDefault(_crisis);
 
@@ -37288,7 +37391,7 @@
 	}];
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37297,11 +37400,11 @@
 		value: true
 	});
 
-	var _crisisDetail = __webpack_require__(50);
+	var _crisisDetail = __webpack_require__(52);
 
 	var _crisisDetail2 = _interopRequireDefault(_crisisDetail);
 
-	var _crisisDetail3 = __webpack_require__(51);
+	var _crisisDetail3 = __webpack_require__(53);
 
 	var _crisisDetail4 = _interopRequireDefault(_crisisDetail3);
 
@@ -37314,7 +37417,7 @@
 	};
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(8);
@@ -37328,7 +37431,7 @@
 	}
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37337,11 +37440,11 @@
 		value: true
 	});
 
-	var _crisis = __webpack_require__(43);
+	var _crisis = __webpack_require__(45);
 
 	var _crisis2 = _interopRequireDefault(_crisis);
 
-	var _dialog = __webpack_require__(52);
+	var _dialog = __webpack_require__(54);
 
 	var _dialog2 = _interopRequireDefault(_dialog);
 
@@ -37389,7 +37492,7 @@
 	}];
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37411,13 +37514,13 @@
 	}]);
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(54);
+	var content = __webpack_require__(56);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(14)(content, {});
@@ -37437,7 +37540,7 @@
 	}
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(13)();
@@ -37451,7 +37554,7 @@
 
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports) {
 
 	(function(){

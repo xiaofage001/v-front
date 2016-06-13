@@ -1,0 +1,84 @@
+@badge-color: #607D8B;
+@badge-text-color: white;
+@selected-color: #CFD8DC;
+@selected-text-color: white; 
+@selected-hover-color: #BBD8DC;
+@selected-hover-text-color: white;
+@hero-li-color: #EEE;
+@hero-li-hover-color: #DDD;
+@hero-li-hover-text-color: #607D8B;
+@button-color: #eee;
+@button-hover-color: #cfd8dc;
+@delete-button-color: gray;
+@delete-button-text-color: white;
+
+.heroes {
+	margin: 0 0 2em 0;
+	list-style-type: none;
+	padding: 0;
+	width: 15em;
+
+	li {
+		cursor: pointer;
+		position: relative;
+		left: 0;
+		background-color: @hero-li-color;
+		margin: .5em;
+		padding: .3em 0;
+		height: 1.6em;
+		border-radius: 4px;
+
+		&:hover {
+			color: @hero-li-hover-text-color;
+			background-color: @hero-li-hover-color;
+			left: .1em;
+		}
+	}
+
+	li.selected {
+		&:hover {
+			background-color: @selected-hover-color !important;
+			color: @selected-hover-text-color;
+		}
+	}
+
+	.badge {
+		display: inline-block;
+		font-size: small;
+		color: @badge-text-color;
+		padding: .8em .7em 0 .7em;
+		background-color: @badge-color;
+		line-height: 1em;
+		position: relative;
+		left: -1px;
+		top: -4px;
+		height: 1.8em;
+		margin-right: .8em;
+		border-radius: 4px 0 0 4px;
+	}
+}
+
+.selected {
+	background-color: @selected-color !important;
+	color: @selected-text-color;
+}
+
+button {
+	font-family: Arial;
+	background-color: @button-color;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	cursor: hand;
+
+	&:hover {
+		background-color: @button-hover-color;
+	}
+}
+
+button.delete-button {
+	float: right;
+	background-color: @delete-button-color !important;
+	color: @delete-button-text-color;
+}

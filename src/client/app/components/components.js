@@ -15,6 +15,12 @@ const componentsList = [{
 }, {
   name: upperFirstCharactor(About),
   value: '关于',
+}, {
+  name: 'CrisisCenter',
+  value: 'Crisis',
+}, {
+  name: 'Heroes',
+  value: 'Heroes',
 }];
 
 export default angular.module('app.components', [Home, About]).name;
