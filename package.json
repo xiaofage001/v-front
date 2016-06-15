@@ -7,7 +7,8 @@
     "start": "npm run dev",
     "test": "karma start",
     "dev": "NODE_ENV=development webpack --watch & node ./node_modules/.bin/babel-node src/server/bin/start",
-    "production": "NODE_ENV=production webpack"
+    "production": "NODE_ENV=production webpack",
+    "debug": "NODE_ENV=development node ./node_modules/.bin/babel-node src/server/bin/start"
   },
   "keywords": [],
   "author": "",
@@ -23,13 +24,18 @@
     "compression": "^1.6.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
     "fs": "0.0.2",
     "html-webpack-plugin": "^2.19.0",
     "jade": "^1.11.0",
     "js-yaml": "^3.6.1",
     "lodash": "^4.13.1",
+    "morgan": "^1.7.0",
     "normalize.css": "^4.1.1",
+    "passport": "^0.3.2",
+    "passport-oauth": "^1.0.0",
     "path": "^0.12.7",
+    "request": "^2.72.0",
     "serve-favicon": "^2.3.0",
     "winston": "^2.2.0"
   },

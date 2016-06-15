@@ -8,6 +8,10 @@ import config from './config';
 import routes from './routes';
 import log from './util/log';
 
+import passport from 'passport';
+import session from 'express-session';
+import passportRoute from './auth2/routes/passport';
+
 const app = express();
 const logger = log.getLogger('app');
 
@@ -21,11 +25,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
+// passport needed
+app.use(session({ secret: 'keyboard mouse', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+passportRoute(app);
+app.use(routes);
+
 
 // static会放过根目录,权限需要在前面，如kibana本身的auth()
 app.use(express.static(path.join(__dirname, '..', 'client')));
-
-app.use('/', routes);
 
 logger.info(`System Started at port ===>>> ${config.port}`);
 
