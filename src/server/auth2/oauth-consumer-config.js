@@ -1,6 +1,8 @@
+'use strict';
+//passport-oauth配置
 module.exports = {
-  name: 'Samplr'
-, icon: 'http://example.com/icon_64.png'
-, clientId: 'abc123'
-, clientSecret: 'ssh-secret'
+  //客户端id
+  clientId: 'abc123', 
+  //用户秘钥
+  clientSecret: 'ssh-secret'
 };

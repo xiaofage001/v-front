@@ -12,6 +12,7 @@ import passport from 'passport';
 import session from 'express-session';
 import passportRoute from './auth2/routes/passport';
 
+
 const app = express();
 const logger = log.getLogger('app');
 
@@ -30,9 +31,8 @@ app.use(session({ secret: 'keyboard mouse', resave: false, saveUninitialized: fa
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
-passportRoute(app);
+//passportRoute放在所有路由前面
+app.use(passportRoute);
 app.use(routes);
 
 

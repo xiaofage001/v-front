@@ -8,7 +8,7 @@
     "test": "karma start",
     "dev": "NODE_ENV=development webpack --watch & node ./node_modules/.bin/babel-node src/server/bin/start",
     "production": "NODE_ENV=production webpack",
-    "debug": "NODE_ENV=development node ./node_modules/.bin/babel-node src/server/bin/start"
+    "debug": "NODE_ENV=development node --debug-brk ./node_modules/.bin/babel-node src/server/bin/start"
   },
   "keywords": [],
   "author": "",
